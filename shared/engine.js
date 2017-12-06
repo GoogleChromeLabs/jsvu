@@ -67,7 +67,7 @@ const updateEngine = async ({ name, id, verifyChecksum }) => {
 		log.success(`Extraction completed.`);
 
 		log.start('Testing…');
-		await test(status.os);
+		await test();
 		log.updateSuccess('Testing completed.');
 
 		log.success(`${name} v${version} has been installed! 🎉`);

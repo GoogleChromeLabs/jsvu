@@ -35,7 +35,18 @@ const extract = ({ filePath, engine, os }) => {
 		installer.installLibrary('natives_blob.bin');
 		installer.installLibrary('snapshot_blob.bin');
 		if (os.startsWith('win')) {
-			installer.installBinary({ 'd8.exe': 'v8.exe' });
+			installer.installBinary(
+				{ 'd8.exe': 'v8.exe' },
+				{ symlink: false }
+			);
+			installer.installScript({
+				name: 'v8.cmd',
+				generateScript: (targetPath) => {
+					return `
+						"${targetPath}\\v8.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
+					`;
+				}
+			});
 		} else {
 			installer.installBinary({ 'd8': 'v8' }, { symlink: false });
 			installer.installScript({
@@ -43,7 +54,7 @@ const extract = ({ filePath, engine, os }) => {
 				generateScript: (targetPath) => {
 					return `
 						#!/usr/bin/env bash
-						"${targetPath}/v8" --natives_blob=${targetPath}/natives_blob.bin --snapshot_blob=${targetPath}/snapshot_blob.bin "$@"
+						"${targetPath}/v8" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
 					`;
 				}
 			});

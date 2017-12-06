@@ -60,8 +60,20 @@ const extract = ({ filePath, engine, os }) => {
 				installer.installLibraryGlob('JavaScriptCore.resources/*');
 				installer.installLibraryGlob('*.dll');
 				installer.installLibraryGlob('*.pdb');
-				installer.installBinary({ 'jsc.exe': 'javascriptcore.exe' });
-				installer.installBinarySymlink({ 'jsc.exe': 'javascriptcore.exe' });
+				// One DLL that gets loaded by `jsc.exe`, `jscLib.dll`, depends on the
+				// filename of `jsc.exe`. Because of that, we avoid renaming `jsc.exe`
+				// to `javascriptcore.exe` on Windows.
+				installer.installBinary('jsc.exe', { symlink: false });
+				installer.installScript({
+					name: 'javascriptcore.cmd',
+					alias: 'jsc.cmd',
+					symlink: false,
+					generateScript: (targetPath) => {
+						return `
+							"${targetPath}\\jsc.exe" %*
+						`;
+					}
+				});
 				break;
 			}
 		}

@@ -55,8 +55,20 @@ const extract = ({ filePath, engine, os }) => {
 			case 'win32':
 			case 'win64': {
 				installer.installLibraryGlob('*.dll');
-				installer.installBinary({ 'js.exe': 'spidermonkey.exe' });
-				installer.installBinarySymlink({ 'spidermonkey.exe': 'sm.exe' });
+				installer.installBinary(
+					{ 'js.exe': 'spidermonkey.exe' },
+					{ symlink: false }
+				);
+				installer.installScript({
+					name: 'spidermonkey.cmd',
+					alias: 'sm.cmd',
+					symlink: false,
+					generateScript: (targetPath) => {
+						return `
+							"${targetPath}\\spidermonkey.exe" %*
+						`;
+					}
+				});
 				break;
 			}
 		}

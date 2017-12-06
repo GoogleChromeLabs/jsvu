@@ -57,8 +57,20 @@ const extract = ({ filePath, engine, os }) => {
 				});
 				installer.installLibraryGlob('*.pdb');
 				installer.installLibraryGlob('*.dll');
-				installer.installBinary({ 'ch.exe': 'chakra.exe' });
-				installer.installBinarySymlink({ 'chakra.exe': 'ch.exe' });
+				installer.installBinary(
+					{ 'ch.exe': 'chakra.exe' },
+					{ symlink: false }
+				);
+				installer.installScript({
+					name: 'chakra.cmd',
+					alias: 'ch.cmd',
+					symlink: false,
+					generateScript: (targetPath) => {
+						return `
+							"${targetPath}\\chakra.exe" %*
+						`;
+					}
+				});
 				break;
 			}
 		}

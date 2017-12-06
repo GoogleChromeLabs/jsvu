@@ -14,7 +14,7 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "echo 'Use `npm run $os` where `$os` reflects your system.'; echo 'See `npm run` for the full list.' && exit 1",
+		"test": "echo 'Use `npm run test-$os` where `$os` reflects your system.'; echo 'See `npm run` for the full list.' && exit 1",
 		"test-mac64": "npm link; mkdir -p ~/.jsvu; echo '{\"os\":\"mac64\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"]}' > ~/.jsvu/status.json && jsvu && echo '{\"os\":\"mac64\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"],\"chakra\":\"0\",\"javascriptcore\":\"0\",\"spidermonkey\":\"0\",\"v8\":\"0\"}' > ~/.jsvu/status.json && jsvu",
 		"test-linux32": "npm link; mkdir -p ~/.jsvu; echo '{\"os\":\"linux32\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"]}' > ~/.jsvu/status.json && jsvu && echo '{\"os\":\"linux32\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"],\"chakra\":\"0\",\"javascriptcore\":\"0\",\"spidermonkey\":\"0\",\"v8\":\"0\"}' > ~/.jsvu/status.json && jsvu",
 		"test-linux64": "npm link; mkdir -p ~/.jsvu; echo '{\"os\":\"linux64\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"]}' > ~/.jsvu/status.json && jsvu && echo '{\"os\":\"linux64\",\"engines\":[\"chakra\",\"javascriptcore\",\"spidermonkey\",\"v8\"],\"chakra\":\"0\",\"javascriptcore\":\"0\",\"spidermonkey\":\"0\",\"v8\":\"0\"}' > ~/.jsvu/status.json && jsvu",

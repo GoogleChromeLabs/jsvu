@@ -21,15 +21,16 @@ const tempy = require('tempy');
 const config = require('../../shared/config.js');
 const jsvuPath = config.path;
 
-const test = async (os) => {
+const test = async () => {
 	const path = tempy.file();
-	const suffix = os.startsWith('win') ? '.exe' : '';
 	fs.writeFileSync(path, `print('Hi!');\n`);
+	// TODO: Use `===` instead of `endsWith` once this bug is resolved:
+	// https://github.com/sindresorhus/execa/issues/116
 	console.assert(
-		(await execa(`${jsvuPath}/spidermonkey${suffix}`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/spidermonkey`, [path])).stdout.endsWith('Hi!')
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/sm${suffix}`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/sm`, [path])).stdout.endsWith('Hi!')
 	);
 };
 

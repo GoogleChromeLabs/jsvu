@@ -124,7 +124,7 @@ class Installer {
 			);
 		}
 	}
-	installScript({ name, alias, generateScript }) {
+	installScript({ name, alias, symlink, generateScript }) {
 		const to = `${jsvuPath}/${name}`;
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
 		const contents = generateScript(this.targetPath)
@@ -134,7 +134,11 @@ class Installer {
 		fse.writeFileSync(to, contents);
 		fse.chmodSync(to, 0o555);
 		if (alias) {
-			installSingleBinarySymlink(`${jsvuPath}/${alias}`, to);
+			if (symlink) {
+				installSingleBinarySymlink(`${jsvuPath}/${alias}`, to);
+			} else {
+				fse.copySync(to, `${jsvuPath}/${alias}`);
+			}
 		}
 	}
 }
