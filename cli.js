@@ -115,7 +115,7 @@ const promptEngines = () => {
 	} else {
 		log.success(`Read OS from config: ${status.os}`);
 	}
-	if (status.engines === undefined) {
+	if (status.engines === undefined || status.engines.length === 0) {
 		status.engines = (await promptEngines()).step;
 		setStatus(status);
 	} else {
