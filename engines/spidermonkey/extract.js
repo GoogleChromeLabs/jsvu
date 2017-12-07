@@ -65,6 +65,7 @@ const extract = ({ filePath, engine, os }) => {
 					symlink: false,
 					generateScript: (targetPath) => {
 						return `
+							@echo off
 							"${targetPath}\\spidermonkey.exe" %*
 						`;
 					}

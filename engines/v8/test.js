@@ -25,13 +25,11 @@ const test = async () => {
 	const path = tempy.file();
 	const program = `print('Hi!');\n`;
 	fs.writeFileSync(path, program);
-	// TODO: Use `===` instead of `endsWith` once this bug is resolved:
-	// https://github.com/sindresorhus/execa/issues/116
 	console.assert(
-		(await execa(`${jsvuPath}/v8`, [path])).stdout.endsWith('Hi!')
+		(await execa(`${jsvuPath}/v8`, [path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/v8`, ['-e', program])).stdout.endsWith('Hi!')
+		(await execa(`${jsvuPath}/v8`, ['-e', program])).stdout === 'Hi!'
 	);
 };
 

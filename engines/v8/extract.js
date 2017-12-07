@@ -43,6 +43,7 @@ const extract = ({ filePath, engine, os }) => {
 				name: 'v8.cmd',
 				generateScript: (targetPath) => {
 					return `
+						@echo off
 						"${targetPath}\\v8.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
 					`;
 				}

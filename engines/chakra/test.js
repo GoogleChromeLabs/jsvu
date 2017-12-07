@@ -24,13 +24,11 @@ const jsvuPath = config.path;
 const test = async () => {
 	const path = tempy.file();
 	fs.writeFileSync(path, `print('Hi!');\n`);
-	// TODO: Use `===` instead of `endsWith` once this bug is resolved:
-	// https://github.com/sindresorhus/execa/issues/116
 	console.assert(
-		(await execa(`${jsvuPath}/chakra`, [path])).stdout.endsWith('Hi!')
+		(await execa(`${jsvuPath}/chakra`, [path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/ch`, [path])).stdout.endsWith('Hi!')
+		(await execa(`${jsvuPath}/ch`, [path])).stdout === 'Hi!'
 	);
 };
 
