@@ -117,6 +117,9 @@ const promptEngines = () => {
 	}
 	if (status.engines === undefined || status.engines.length === 0) {
 		status.engines = (await promptEngines()).step;
+		if (status.engines.length === 0) {
+			log.failure('No JavaScript engines selected. Nothing to do…');
+		}
 		setStatus(status);
 	} else {
 		log.success(`Read engines from config: ${status.engines.join(', ')}`);

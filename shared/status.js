@@ -23,6 +23,24 @@ const jsvuPath = config.path;
 const statusFilePath = `${jsvuPath}/status.json`;
 
 const getStatus = () => {
+	const status = {};
+	const args = process.argv.slice(2);
+	for (const arg of args) {
+		if (arg.startsWith('--os=')) {
+			const os = arg.split('=')[1];
+			status.os = os;
+		}
+		else if (arg.startsWith('--engines=')) {
+			const enginesArg = arg.split('=')[1];
+			const engines = enginesArg === 'all' ?
+				['chakra', 'javascriptcore', 'spidermonkey', 'v8'] :
+				enginesArg.split(',');
+			status.engines = engines;
+		}
+	}
+	if (status.os && status.engines) {
+		return status;
+	}
 	try {
 		return require(statusFilePath);
 	} catch (error) {
