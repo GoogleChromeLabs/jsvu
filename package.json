@@ -11,7 +11,7 @@
 	"main": "cli.js",
 	"bin": "cli.js",
 	"engines": {
-		"node": ">=8"
+		"node": ">=8.9.0"
 	},
 	"scripts": {
 		"test": "echo 'Use `npm run test-$os` where `$os` reflects your system.'; echo 'See `npm run` for the full list.' && exit 1",
