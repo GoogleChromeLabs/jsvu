@@ -8,6 +8,8 @@ _jsvu_ makes it easy to install recent versions of various JavaScript engines wi
 
 ## Installation
 
+**Note:** _jsvu_ requires Node.js v8.9.0+!
+
 Install the _jsvu_ CLI:
 
 ```sh
