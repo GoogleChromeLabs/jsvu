@@ -43,7 +43,8 @@ class Installer {
 	constructor({ engine, path }) {
 		this.engine = engine;
 		this.sourcePath = path;
-		this.targetPath = `${jsvuPath}/engines/${engine}`;
+		this.targetRelPath = `engines/${engine}`;
+		this.targetPath = `${jsvuPath}/${this.targetRelPath}`;
 		fse.ensureDirSync(this.targetPath);
 	}
 	installLibrary(fileName) {
@@ -127,7 +128,8 @@ class Installer {
 	installScript({ name, alias, symlink, generateScript }) {
 		const to = `${jsvuPath}/${name}`;
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
-		const contents = generateScript(this.targetPath)
+		const pathForWrapper = (process.platfrom === 'win32') ? `%~dp0${this.targetRelPath}` : this.targetPath
+		const contents = generateScript(pathForWrapper)
 			.trimLeft() // TODO: Use `trimStart` once it’s available.
 			.replace(/\t/g, '');
 		fse.removeSync(to);
