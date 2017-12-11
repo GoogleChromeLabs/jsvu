@@ -128,8 +128,8 @@ class Installer {
 	installScript({ name, alias, symlink, generateScript }) {
 		const to = `${jsvuPath}/${name}`;
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
-		const pathForWrapper = (process.platfrom === 'win32') ? `%~dp0${this.targetRelPath}` : this.targetPath
-		const contents = generateScript(pathForWrapper)
+		const wrapperPath = process.platform === 'win32' ? `%~dp0${this.targetRelPath}` : this.targetPath;
+		const contents = generateScript(wrapperPath)
 			.trimLeft() // TODO: Use `trimStart` once it’s available.
 			.replace(/\t/g, '');
 		fse.removeSync(to);
