@@ -41,7 +41,13 @@ const download = ({ url, checksum }) => {
 						checksum} Actual: ${actualChecksum}`);
 				}
 			}
-			const filePath = tempy.file();
+			// Passing in `name` ensures that `tempy` creates a temporary directory
+			// in which the file is created. Thus, we can later extract the archive
+			// within this same directory and use wildcards to move its contents,
+			// knowing that there are no other files in the directory.
+			const filePath = tempy.file({
+				name: checksum.slice(0, 8)
+			});
 			fs.writeFileSync(filePath, buffer);
 			resolve(filePath);
 		} catch (error) {
