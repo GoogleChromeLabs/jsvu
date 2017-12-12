@@ -46,7 +46,7 @@ const download = ({ url, checksum }) => {
 			// within this same directory and use wildcards to move its contents,
 			// knowing that there are no other files in the directory.
 			const filePath = tempy.file({
-				name: checksum.slice(0, 8)
+				name: checksum !== undefined ? checksum.slice(0, 8) : 'jsvutmpf'
 			});
 			fs.writeFileSync(filePath, buffer);
 			resolve(filePath);

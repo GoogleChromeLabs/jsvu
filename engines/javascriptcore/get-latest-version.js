@@ -26,7 +26,7 @@ const getLatestVersion = () => {
 			const version = regex.exec(response.body)[1];
 			resolve(version);
 		} catch (error) {
-			reject(error.response.body);
+			reject(error);
 		}
 	});
 };
