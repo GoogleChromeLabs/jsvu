@@ -77,8 +77,8 @@ const updateEngine = async ({ name, id, verifyChecksum }) => {
 		status[id] = version;
 		setStatus(status);
 
-	} catch (exception) {
-		log.failure(exception.message);
+	} catch (error) {
+		log.failure(error);
 	}
 
 };

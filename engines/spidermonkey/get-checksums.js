@@ -40,7 +40,10 @@ const getChecksums = (version) => {
 const getChecksum = async ({ version, url }) => {
 	const checksums = await getChecksums(version);
 	const checksum = checksums.get(url);
-	return checksum;
+	if (checksum) {
+		return checksum;
+	}
+	throw new Error('Checksum not found.');
 };
 
 module.exports = getChecksum;
