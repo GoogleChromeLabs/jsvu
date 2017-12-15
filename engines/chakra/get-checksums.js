@@ -18,7 +18,7 @@ const get = require('../../shared/get.js');
 const getChecksums = (version) => {
 	const url = `https://github.com/Microsoft/ChakraCore/releases/tag/v${version}`;
 	// https://stackoverflow.com/a/1732454/96656
-	const regex = /href="(https:\/\/aka\.ms\/chakracore\/cc_[^"]+)">[^<]+<\/a><\/td>\n<td align="left"><code>([a-f0-9]{64})<\/code><\/td>/g;
+	const regex = /href="(https:\/\/aka\.ms\/chakracore\/cc_[^"]+)"[^>]*>[^<]+<\/a><\/td>\n<td align="left"><code>([a-f0-9]{64})<\/code><\/td>/g;
 	return new Promise(async (resolve, reject) => {
 		try {
 			const response = await get(url);
