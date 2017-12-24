@@ -4,7 +4,7 @@ _jsvu_ is the <b>J</b>ava<b>S</b>cript (engine) <b>V</b>ersion <b>U</b>pdater.
 
 _jsvu_ makes it easy to install recent versions of various JavaScript engines without having to compile them from source.
 
-[![jsvu Screenshot](https://rawgit.com/GoogleChromeLabs/jsvu/3bda9dd/screenshot.svg)](https://asciinema.org/a/rfS1M5ynKm1hGaBqJYJj0mGCi)
+[![](https://rawgit.com/GoogleChromeLabs/jsvu/master/screenshot.svg)](https://asciinema.org/a/rfS1M5ynKm1hGaBqJYJj0mGCi)
 
 ## Installation
 
