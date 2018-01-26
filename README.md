@@ -74,6 +74,18 @@ That’s it! You can now run code snippets in all those engines with a single co
 eshost -e 'new RegExp("\n").toString()' # https://crbug.com/v8/1982
 ```
 
+## Integration with non-interactive environments
+
+On your personal devices, the only command you’ll ever need is `jsvu` as described above. There are no command-line flags to remember. 👋🏻
+
+However, there are use cases for running jsvu within non-interactive environments (e.g. as part of continuous integration), where it’s desirable to bypass the initial `jsvu` prompt asking to confirm your operating system, architecture, and the list of JavaScript engines to install. Here’s how to do that:
+
+```sh
+jsvu --os=mac64 --engines=all
+# Equivalent to:
+jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8
+```
+
 ## Security considerations
 
 _jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsvu` rather than, say, `/usr/bin`.
