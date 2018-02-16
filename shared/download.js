@@ -16,6 +16,7 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
+const ProgressBar = require('progress');
 const tempy = require('tempy');
 
 const get = require('./get.js');
@@ -29,10 +30,22 @@ const hash = (data) => {
 const download = ({ url, checksum }) => {
 	return new Promise(async (resolve, reject) => {
 		try {
+			const bar = new ProgressBar('  [:bar] :percent', {
+				complete: '=',
+				incomplete: ' ',
+				width: 72,
+				total: 100,
+			});
 			const response = await get(url, {
 				// Download as binary file.
 				encoding: null,
+			}).on('downloadProgress', (progress) => {
+				bar.update(progress.percent);
+			}).on('error', (error) => {
+				reject(`Download error: ${error}`);
 			});
+			// Clear the progress bar.
+			console.log('\x1B[1A\x1B[2K\x1B[1A');
 			const buffer = response.body;
 			if (checksum !== undefined) {
 				const actualChecksum = hash(buffer);
