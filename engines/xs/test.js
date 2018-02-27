@@ -28,9 +28,9 @@ const test = async () => {
 	console.assert(
 		(await execa(`${jsvuPath}/xst`, ['-s', path])).stdout === 'Hi!'
 	);
-// 	console.assert(
-// 		(await execa(`${jsvuPath}/xst`, ['-e', program])).stdout === 'Hi!'
-// 	);
+	console.assert(
+		(await execa(`${jsvuPath}/xst`, ['-e', program])).stdout === 'Hi!'
+	);
 };
 
 module.exports = test;
