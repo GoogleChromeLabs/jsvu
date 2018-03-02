@@ -32,9 +32,9 @@ const extract = ({ filePath, engine, os }) => {
 			path: tmpPath,
 		});
 		if (os.startsWith('win')) {
-			installer.installBinary({ 'xst.exe': 'xst.exe' }, { symlink: true });
+			installer.installBinary({ 'xst.exe': 'xs.exe' }, { symlink: true });
 		} else {
-			installer.installBinary({ 'xst': 'xst' }, { symlink: true });
+			installer.installBinary({ 'xst': 'xs' }, { symlink: true });
 		}
 		resolve();
 	});
