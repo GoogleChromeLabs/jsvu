@@ -96,6 +96,11 @@ const promptEngines = () => {
 				value: 'v8',
 				checked: true,
 			},
+			{
+				name: 'XS',
+				value: 'xs',
+				checked: true,
+			},
 		],
 	});
 };

@@ -34,12 +34,13 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 ## Supported engines
 
-| JavaScript engine         | Binary name               | `mac64` | `win32`          | `win64`            | `linux32` | `linux64` |
-| ------------------------- | ------------------------- | ------- | ---------------- | ------------------ | --------- | --------- |
-| [**Chakra**][ch]          | `chakra` or `ch`          | ✅      | ✅               | ✅                 | ❌        | ✅        |
-| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅      | ✅ <sup>\*</sup> | ✅ <sup>(32)\*</sup> | [❌][jsc] | [❌][jsc] |
-| [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅      | ✅               | ✅                 | ✅        | ✅        |
-| [**V8**][v8]              | `v8`                      | ✅      | ✅               | ✅                 | ✅        | ✅        |
+| JavaScript engine         | Binary name               | `mac64`             | `win32`         | `win64`              | `linux32` | `linux64` |
+| ------------------------- | ------------------------- | ------------------- | --------------- | -------------------- | --------- | --------- |
+| [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ✅               | ✅                   | ❌        | ✅        |
+| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅ <sup>(32)\*</sup> | [❌][jsc] | [❌][jsc] |
+| [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅               | ✅                   | ✅        | ✅        |
+| [**V8**][v8]              | `v8`                      | ✅                  | ✅               | ✅                   | ✅        | ✅        |
+| [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
 
 <sup>\*</sup> To get JavaScriptCore running on Windows, [you’ll have to install iTunes](https://lists.webkit.org/pipermail/webkit-dev/2013-August/025242.html).
 
@@ -47,6 +48,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
 [v8]: https://bugs.chromium.org/p/v8/issues/detail?id=5918
+[xs]: https://github.com/Moddable-OpenSource/moddable-xst
 
 ## Integration with eshost-cli
 
@@ -66,6 +68,7 @@ eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/v8
+eshost --add 'XS' xs ~/.jsvu/xs
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
@@ -83,7 +86,7 @@ However, there are use cases for running jsvu within non-interactive environment
 ```sh
 jsvu --os=mac64 --engines=all
 # Equivalent to:
-jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8
+jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8,xs
 ```
 
 ## Security considerations
