@@ -40,7 +40,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅ <sup>(32)\*</sup> | [❌][jsc] | [❌][jsc] |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                  | ✅               | ✅                   | ✅        | ✅        |
-| [**XS**][xs]              | `xst`                     | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
+| [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
 
 <sup>\*</sup> To get JavaScriptCore running on Windows, [you’ll have to install iTunes](https://lists.webkit.org/pipermail/webkit-dev/2013-August/025242.html).
 
@@ -68,7 +68,7 @@ eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/v8
-eshost --add 'XS' xs ~/.jsvu/xst
+eshost --add 'XS' xs ~/.jsvu/xs
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
@@ -86,7 +86,7 @@ However, there are use cases for running jsvu within non-interactive environment
 ```sh
 jsvu --os=mac64 --engines=all
 # Equivalent to:
-jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8
+jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8,xs
 ```
 
 ## Security considerations
