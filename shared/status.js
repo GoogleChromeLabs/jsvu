@@ -33,7 +33,7 @@ const getStatus = () => {
 		else if (arg.startsWith('--engines=')) {
 			const enginesArg = arg.split('=')[1];
 			const engines = enginesArg === 'all' ?
-				['chakra', 'javascriptcore', 'spidermonkey', 'v8'] :
+				['chakra', 'javascriptcore', 'spidermonkey', 'v8', 'xs'] :
 				enginesArg.split(',');
 			status.engines = engines;
 		}
