@@ -26,10 +26,10 @@ const test = async () => {
 	const program = `print('Hi!');\n`;
 	fs.writeFileSync(path, program);
 	console.assert(
-		(await execa(`${jsvuPath}/xst`, ['-s', path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/xs`, ['-s', path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/xst`, ['-e', program])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/xs`, ['-e', program])).stdout === 'Hi!'
 	);
 };
 
