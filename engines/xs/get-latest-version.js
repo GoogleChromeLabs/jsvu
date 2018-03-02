@@ -16,12 +16,12 @@
 const get = require('../../shared/get.js');
 
 const getLatestVersion = () => {
-	const url = 'https://github.com/patrick-soquet/moddable-xst/releases';
+	const url = 'https://github.com/Moddable-OpenSource/moddable-xst/releases';
 	return new Promise(async (resolve, reject) => {
 		try {
 			const response = await get(url);
 			// https://stackoverflow.com/a/1732454/96656
-			const regex = /href="\/patrick-soquet\/moddable-xst\/releases\/tag\/v([^"]+)">/;
+			const regex = /href="\/Moddable-OpenSource\/moddable-xst\/releases\/tag\/v([^"]+)">/;
 			const version = regex.exec(response.body)[1];
 			resolve(version);
 		} catch (error) {
