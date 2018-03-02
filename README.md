@@ -68,7 +68,6 @@ eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/v8
-eshost --add 'XS' xs ~/.jsvu/xs
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
