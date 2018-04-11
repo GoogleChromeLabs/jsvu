@@ -74,6 +74,8 @@ That’s it! You can now run code snippets in all those engines with a single co
 
 ```sh
 eshost -e 'new RegExp("\n").toString()' # https://crbug.com/v8/1982
+
+eshost -e '(function maxCallStackSize(){ try {return 1 + maxCallStackSize();} catch (b) {return 1;}})()'
 ```
 
 ## Integration with non-interactive environments
