@@ -21,7 +21,7 @@ const getLatestVersion = () => {
 		try {
 			const response = await get(url);
 			// https://stackoverflow.com/a/1732454/96656
-			const regex = /<a href="\/Microsoft\/ChakraCore\/compare\/v(\d+\.\d+.\d+)\.\.\.master">/;
+			const regex = /href="\/Microsoft\/ChakraCore\/tree\/v(\d+\.\d+.\d+)"/;
 			const version = regex.exec(response.body)[1];
 			resolve(version);
 		} catch (error) {
