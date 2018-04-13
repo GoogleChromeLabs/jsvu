@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2018 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -13,14 +13,29 @@
 
 'use strict';
 
-const predictFileName = require('./predict-file-name.js');
-
-const predictUrl = (version, os) => {
-	const fileName = predictFileName(os);
-	const url =
-		`https://storage.googleapis.com/chromium-v8/official/canary/v8-${
-			fileName}-rel-${version}.zip`;
-	return url;
+const predictFileName = (os) => {
+	switch (os) {
+		case 'mac64': {
+			return 'mac64';
+		}
+		case 'linux32': {
+			return 'linux32';
+		}
+		case 'linux64': {
+			return 'linux64';
+		}
+		case 'win32': {
+			return 'win32';
+		}
+		case 'win64': {
+			return 'win64';
+		}
+		default: {
+			throw new Error(
+				`V8 does not offer precompiled ${os} binaries.`
+			);
+		}
+	}
 };
 
-module.exports = predictUrl;
+module.exports = predictFileName;

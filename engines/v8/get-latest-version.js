@@ -14,15 +14,19 @@
 'use strict';
 
 const get = require('../../shared/get.js');
+const predictFileName = require('./predict-file-name.js');
 
-const getLatestVersion = () => {
-	const url = 'https://github.com/v8/v8/releases';
+const getLatestVersion = (os) => {
+	const fileName = predictFileName(os);
+	const url = `https://storage.googleapis.com/chromium-v8/official/canary/v8-${
+		fileName}-rel-latest.json`;
 	return new Promise(async (resolve, reject) => {
 		try {
-			const response = await get(url);
-			// https://stackoverflow.com/a/1732454/96656
-			const regex = /<h3>\s+<a href="\/v8\/v8\/releases\/tag\/([^"]+)">/;
-			const version = regex.exec(response.body)[1];
+			const response = await get(url, {
+				json: true,
+			});
+			const data = response.body;
+			const version = data.version;
 			resolve(version);
 		} catch (error) {
 			reject(error);

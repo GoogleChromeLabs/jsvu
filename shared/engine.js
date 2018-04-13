@@ -27,17 +27,18 @@ const updateEngine = async ({ name, id, verifyChecksum }) => {
 
 	try {
 
+		const status = getStatus();
+		console.assert(status.os, '`status.os` is defined');
+
 		log.start(`Finding the latest ${name} version…`);
-		const version = await getLatestVersion();
+		const version = await getLatestVersion(status.os);
 		log.updateSuccess(`Found latest ${name} version: v${version}.`);
 
-		const status = getStatus();
 		if (status[id] === version) {
 			log.failure(`${name} v${version} is already installed.`);
 			return;
 		}
 
-		console.assert(status.os, '`status.os` is defined');
 		log.start(`Predicting URL…`);
 		const url = predictUrl(version, status.os);
 		log.updateSuccess(`URL: ${url}`);
