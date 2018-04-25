@@ -60,7 +60,9 @@ First, install eshost-cli:
 npm install -g eshost-cli
 ```
 
-Then, tell eshost-cli where _jsvu_ installs each JavaScript engine:
+Then, tell eshost-cli where _jsvu_ installs each JavaScript engine.
+
+### Linux/Mac
 
 ```sh
 eshost --add 'Chakra' ch ~/.jsvu/chakra
@@ -68,6 +70,16 @@ eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/v8
+```
+
+### Windows
+
+```bat
+eshost --add "Chakra" ch "%USERPROFILE%\.jsvu\chakra.cmd"
+eshost --add "JavaScriptCore" jsc "%USERPROFILE%\.jsvu\javascriptcore.cmd"
+eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\spidermonkey.cmd"
+eshost --add "V8 --harmony" d8 "%USERPROFILE%\.jsvu\v8.cmd" --args "--harmony"
+eshost --add "V8" d8 "%USERPROFILE%\.jsvu\v8.cmd"
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
