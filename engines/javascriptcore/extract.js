@@ -49,6 +49,22 @@ const extract = ({ filePath, engine, os }) => {
 			}
 			case 'linux32':
 			case 'linux64': {
+				const installer = new Installer({
+					engine,
+					path: tmpPath,
+				});
+				installer.installLibraryGlob('lib/*');
+				installer.installBinary({ 'bin/jsc': 'javascriptcore' }, { symlink: false });
+				installer.installScript({
+					name: 'javascriptcore',
+					alias: 'jsc',
+					generateScript: (targetPath) => {
+						return `
+							#!/usr/bin/env bash
+							LD_LIBRARY_PATH="${targetPath}/lib" "${targetPath}/javascriptcore" "$@"
+						`;
+					}
+				});
 				break;
 			}
 			case 'win32':

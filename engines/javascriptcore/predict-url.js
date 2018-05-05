@@ -13,16 +13,20 @@
 
 'use strict';
 
-const predictFileName = (os) => {
+const predictUrl = (version, os) => {
 	switch (os) {
 		case 'mac64': {
-			return 'minified-archives.webkit.org/mac-highsierra-x86_64-release';
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-highsierra-x86_64-release/${version}.zip`;
 		}
-		// case 'linux32':
-		// case 'linux64':
+		case 'linux32': {
+			return `https://webkitgtk.org/jsc-built-products/x86_32/release/${version}.zip`;
+		}
+		case 'linux64': {
+			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}.zip`;
+		}
 		case 'win32':
 		case 'win64': {
-			return 'archives.webkit.org/win-i386-debug';
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/win-i386-debug/${version}.zip`;
 		}
 		default: {
 			throw new Error(
@@ -30,13 +34,6 @@ const predictFileName = (os) => {
 			);
 		}
 	}
-};
-
-const predictUrl = (version, os) => {
-	const fileName = predictFileName(os);
-	const url = `https://s3-us-west-2.amazonaws.com/${
-		fileName}/${version}.zip`;
-	return url;
 };
 
 module.exports = predictUrl;
