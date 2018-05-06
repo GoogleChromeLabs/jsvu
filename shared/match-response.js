@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2018 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -13,13 +13,18 @@
 
 'use strict';
 
-const matchResponse = require('../../shared/match-response.js');
+const get = require('./get.js');
 
-const getLatestVersion = () => {
-	return matchResponse({
-		url: 'https://github.com/Microsoft/ChakraCore/releases/latest',
-		regex: /href="\/Microsoft\/ChakraCore\/tree\/v(\d+\.\d+.\d+)"/,
+const matchResponse = ({ url, regex }) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const response = await get(url);
+			const version = regex.exec(response.body)[1];
+			resolve(version);
+		} catch (error) {
+			reject(error);
+		}
 	});
 };
 
-module.exports = getLatestVersion;
+module.exports = matchResponse;

@@ -13,22 +13,33 @@
 
 'use strict';
 
-const get = require('../../shared/get.js');
+const matchResponse = require('../../shared/match-response.js');
 
-const getLatestVersion = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const response = await get(
-				'https://nightly.webkit.org/'
-			);
-			// https://stackoverflow.com/a/1732454/96656
-			const regex = /<h6><a href="[^"]+">r(\d+)<\/a><\/h6>/;
-			const version = regex.exec(response.body)[1];
-			resolve(version);
-		} catch (error) {
-			reject(error);
+const getLatestVersion = (os) => {
+	switch (os) {
+		case 'linux32':
+		case 'linux64': {
+			return matchResponse({
+				url: `https://webkitgtk.org/jsc-built-products/x86_${
+					os === 'linux32' ? '32' : '64' }/release/?C=M;O=D`,
+				// Check for the most recent *.sha256sum file rather than the
+				// most recent *.zip file to avoid the race condition where the
+				// ZIP file has not fully been uploaded yet. The *.sha256sum
+				// files are written last, so once one is available the
+				// corresponding ZIP file is guaranteed to be available.
+				// https://mths.be/bww
+				regex: /<a href="(\d+)\.sha256sum">/,
+			});
 		}
-	});
+		case 'win32':
+		case 'win64':
+		case 'mac64': {
+			return matchResponse({
+				url: 'https://nightly.webkit.org/',
+				regex: /<h6><a href="[^"]+">r(\d+)<\/a><\/h6>/,
+			});
+		}
+	}
 };
 
 module.exports = getLatestVersion;
