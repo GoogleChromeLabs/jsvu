@@ -14,21 +14,18 @@
 'use strict';
 
 const fs = require('fs');
-const _unzip = require('unzip');
+
+const extractZip = require('extract-zip');
 
 const unzip = ({ from, to }) => {
 	return new Promise((resolve, reject) => {
-		fs.createReadStream(from)
-			.pipe(_unzip.Extract({
-				path: to
-			}))
-			.on('close', () => {
-				resolve();
-			})
-			.on('error', (error) => {
+		extractZip(from, { dir: to }, (error) => {
+			if (error) {
 				console.log(error);
 				reject();
-			});
+			}
+			resolve();
+		});
 	});
 };
 

@@ -39,6 +39,7 @@
 	"dependencies": {
 		"chalk": "^2.4.1",
 		"execa": "^0.10.0",
+		"extract-zip": "^1.6.6",
 		"fs-extra": "^6.0.0",
 		"glob": "^7.1.2",
 		"got": "^8.3.1",
@@ -50,7 +51,6 @@
 		"tempy": "^0.2.1",
 		"tildify": "^1.2.0",
 		"untildify": "^3.0.2",
-		"unzip": "^0.1.11",
 		"update-notifier": "^2.5.0"
 	}
 }
