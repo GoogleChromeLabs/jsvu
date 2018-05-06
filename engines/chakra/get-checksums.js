@@ -24,7 +24,7 @@ const getChecksums = (version) => {
 			const response = await get(url);
 			const body = response.body;
 			const urlsToChecksums = new Map();
-			// TODO: Use `RegExp#matchAll` once it’s natively available.
+			// TODO: Use `String#matchAll` once it’s natively available.
 			let match;
 			while (match = regex.exec(body)) {
 				const [, fileUrl, checksum] = match;
