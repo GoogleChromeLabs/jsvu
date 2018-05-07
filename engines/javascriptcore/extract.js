@@ -61,7 +61,8 @@ const extract = ({ filePath, engine, os }) => {
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							LD_LIBRARY_PATH="${targetPath}/lib" "${targetPath}/javascriptcore" "$@"
+							LD_LIBRARY_PATH="${targetPath}/lib" exec "${targetPath}/lib/ld-linux${
+								os === 'linux64' ? '-x86-64' : '' }.so.2" "${targetPath}/javascriptcore" "$@"
 						`;
 					}
 				});
