@@ -26,7 +26,7 @@ const predictUrl = (version, os) => {
 		}
 		case 'win32':
 		case 'win64': {
-			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/win-i386-debug/${version}.zip`;
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/win-i386-release/${version}.zip`;
 		}
 		default: {
 			throw new Error(
