@@ -8,7 +8,7 @@ _jsvu_ makes it easy to install recent versions of various JavaScript engines wi
 
 ## Installation
 
-**Note:** _jsvu_ requires Node.js v10.0.0+!
+**Note:** _jsvu_ requires Node.js v8.9.0+. (_jsvu_ follows the latest [active LTS](https://github.com/nodejs/Release#release-schedule) version of Node.)
 
 Install the _jsvu_ CLI:
 
