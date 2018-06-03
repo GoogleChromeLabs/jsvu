@@ -72,7 +72,7 @@ const extract = ({ filePath, engine, os }) => {
 			case 'win64': {
 				const installer = new Installer({
 					engine,
-					path: `${tmpPath}/bin32`,
+					path: `${tmpPath}/bin${os === 'win64' ? '64' : '32'}`,
 				});
 				installer.installLibraryGlob('JavaScriptCore.resources/*');
 				installer.installLibraryGlob('*.dll');

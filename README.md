@@ -37,12 +37,12 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | JavaScript engine         | Binary name               | `mac64`             | `win32`         | `win64`              | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------------------- | --------------- | -------------------- | --------- | --------- |
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ✅               | ✅                   | ❌        | ✅        |
-| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅ <sup>(32)\*</sup> | ✅        | ✅        |
+| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅                   | ✅        | ✅        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
 
-<sup>\*</sup> To get JavaScriptCore running on Windows, [you’ll have to install iTunes](https://lists.webkit.org/pipermail/webkit-dev/2013-August/025242.html).
+<sup>\*</sup> To get JavaScriptCore running on 32-bit Windows, [you’ll have to install iTunes](https://lists.webkit.org/pipermail/webkit-dev/2013-August/025242.html).
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514

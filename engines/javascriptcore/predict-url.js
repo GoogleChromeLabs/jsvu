@@ -24,9 +24,11 @@ const predictUrl = (version, os) => {
 		case 'linux64': {
 			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}.zip`;
 		}
-		case 'win32':
-		case 'win64': {
+		case 'win32': {
 			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/win-i386-release/${version}.zip`;
+		}
+		case 'win64': {
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/wincairo-x86_64-release/${version}.zip`;
 		}
 		default: {
 			throw new Error(
