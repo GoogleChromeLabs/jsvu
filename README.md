@@ -90,6 +90,8 @@ That’s it! You can now run code snippets in all those engines with a single co
 eshost -e 'new RegExp("\n").toString()' # https://crbug.com/v8/1982
 
 eshost -e '(function maxCallStackSize() { try { return 1 + maxCallStackSize(); } catch (_) { return 1; }}())'
+
+eshost -e 'Date.parse("1 Octopus 2018")'
 ```
 
 ## Integration with non-interactive environments
