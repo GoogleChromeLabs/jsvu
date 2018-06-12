@@ -10,6 +10,13 @@
 	"bugs": "https://github.com/GoogleChromeLabs/jsvu/issues",
 	"main": "cli.js",
 	"bin": "cli.js",
+	"files": [
+		"engines/**",
+		"shared/**",
+		"cli.js",
+		"LICENSE",
+		"README.md"
+	],
 	"engines": {
 		"node": ">=8.9.0"
 	},
