@@ -92,6 +92,7 @@ const extract = ({ filePath, engine, os }) => {
 						`;
 					}
 				});
+				console.log('NOTE: JavaScriptCore requires external dependencies to run on Windows. Please see README.md for details.');
 				break;
 			}
 		}

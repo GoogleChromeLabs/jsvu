@@ -37,12 +37,14 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | JavaScript engine         | Binary name               | `mac64`             | `win32`         | `win64`              | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------------------- | --------------- | -------------------- | --------- | --------- |
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ✅               | ✅                   | ❌        | ✅        |
-| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅                   | ✅        | ✅        |
+| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅ <sup>\*</sup>     | ✅        | ✅        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
 
-<sup>\*</sup> To get JavaScriptCore running on 32-bit Windows, [you’ll have to install iTunes](https://lists.webkit.org/pipermail/webkit-dev/2013-August/025242.html).
+<sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
+- On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).
+- On 64-bit Windows, download the latest [WinCairoRequirements](https://github.com/WebKitForWindows/WinCairoRequirements/releases) and add its `bin64` directory to your `PATH`.
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
