@@ -22,6 +22,14 @@ const jsvuPath = config.path;
 
 const statusFilePath = `${jsvuPath}/status.json`;
 
+const translate = {
+	ch: 'chakra',
+	chakracore: 'chakra',
+	jsshell: 'spidermonkey',
+	d8: 'v8',
+	jsc: 'javascriptcore',
+};
+
 const getStatus = () => {
 	const status = {};
 	const args = process.argv.slice(2);
@@ -35,7 +43,9 @@ const getStatus = () => {
 			const engines = enginesArg === 'all' ?
 				['chakra', 'javascriptcore', 'spidermonkey', 'v8', 'xs'] :
 				enginesArg.split(',');
-			status.engines = engines;
+			status.engines = engines.map(engine => translate[engine] ?
+				translate[engine] :
+				engine);
 		}
 	}
 	if (status.os && status.engines) {
