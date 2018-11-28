@@ -28,7 +28,7 @@ const getConfigFromFile = () => {
 	} catch (error) {
 		return {};
 	}
-}
+};
 
 const getStatus = () => {
 	const status = {};
