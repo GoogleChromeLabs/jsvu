@@ -22,6 +22,14 @@ const jsvuPath = config.path;
 
 const statusFilePath = `${jsvuPath}/status.json`;
 
+const getConfigFromFile = () => {
+	try {
+		return require(statusFilePath);
+	} catch (error) {
+		return {};
+	}
+}
+
 const getStatus = () => {
 	const status = {};
 	const args = process.argv.slice(2);
@@ -41,11 +49,10 @@ const getStatus = () => {
 	if (status.os && status.engines) {
 		return status;
 	}
-	try {
-		return require(statusFilePath);
-	} catch (error) {
-		return {};
+	if (status.engines) {
+		return { ...getConfigFromFile(), engines: status.engines };
 	}
+	return getConfigFromFile();
 };
 
 const setStatus = (status) => {
