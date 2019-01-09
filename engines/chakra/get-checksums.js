@@ -28,7 +28,7 @@ const getChecksums = (version) => {
 			let match;
 			while (match = regex.exec(body)) {
 				const [, fileUrl, checksum] = match;
-				urlsToChecksums.set(fileUrl, checksum);
+				urlsToChecksums.set(fileUrl, checksum.toLowerCase());
 			}
 			resolve(urlsToChecksums);
 		} catch (error) {
