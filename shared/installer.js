@@ -17,7 +17,6 @@ const fse = require('fs-extra');
 const path = require('path');
 
 const glob = require('glob');
-const lnf = require('lnf');
 const tildify = require('tildify');
 
 const config = require('../shared/config.js');
