@@ -133,7 +133,7 @@ class Installer {
 			`%~dp0${this.targetRelPath}` :
 			this.targetPath;
 		const contents = generateScript(wrapperPath)
-			.trimLeft() // TODO: Use `trimStart` once Node.js v10 hits LTS.
+			.trimStart()
 			.replace(/\t/g, '');
 		fse.removeSync(to);
 		fse.writeFileSync(to, contents);
