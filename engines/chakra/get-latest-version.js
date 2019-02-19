@@ -13,12 +13,19 @@
 
 'use strict';
 
-const matchResponse = require('../../shared/match-response.js');
+const get = require('../../shared/get.js');
 
-const getLatestVersion = () => {
-	return matchResponse({
-		url: 'https://github.com/Microsoft/ChakraCore/releases/latest',
-		regex: /href="\/Microsoft\/ChakraCore\/tree\/v(\d+\.\d+.\d+)"/,
+const getLatestVersion = (os) => {
+	const url = 'https://aka.ms/chakracore/version';
+	return new Promise(async (resolve, reject) => {
+		try {
+			const response = await get(url);
+			const body = response.body;
+			const version = body.trimEnd().replace(/_/g, '.');
+			resolve(version);
+		} catch (error) {
+			reject(error);
+		}
 	});
 };
 
