@@ -18,7 +18,7 @@ const { getStatus, setStatus } = require('../shared/status.js');
 const log = require('../shared/log.js');
 const download = require('../shared/download.js');
 
-const updateEngine = async ({ name, id, verifyChecksum }) => {
+const updateEngine = async ({ name, id }) => {
 
 	const getLatestVersion = require(`../engines/${id}/get-latest-version.js`);
 	const predictUrl = require(`../engines/${id}/predict-url.js`);
@@ -43,21 +43,9 @@ const updateEngine = async ({ name, id, verifyChecksum }) => {
 		const url = predictUrl(version, status.os);
 		log.updateSuccess(`URL: ${url}`);
 
-		let filePath;
-		if (verifyChecksum) {
-			const getChecksum = require(`../engines/${id}/get-checksums.js`);
-			log.start('Getting SHA-256 checksum…');
-			const checksum = await getChecksum({ version, url });
-			log.updateSuccess(`SHA-256 checksum: ${checksum}`);
-
-			log.start('Downloading and verifying checksum…');
-			filePath = await download({ url, checksum });
-			log.updateSuccess(`Download and checksum verification completed.`);
-		} else {
-			log.start('Downloading…');
-			filePath = await download({ url });
-			log.updateSuccess(`Download completed.`);
-		}
+		log.start('Downloading…');
+		const filePath = await download(url);
+		log.updateSuccess(`Download completed.`);
 
 		log.start('Extracting…');
 		await extract({

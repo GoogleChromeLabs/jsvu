@@ -112,7 +112,7 @@ jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8,xs
 
 _jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsvu` rather than, say, `/usr/bin`.
 
-_jsvu_ downloads files over HTTPS, and only uses URLs that are controlled by the creators of the JavaScript engine or, in the case of JavaScriptCore on Linux, the port maintainers. As an additional layer of security, _jsvu_ performs SHA-256 checksum verification where applicable.
+_jsvu_ downloads files over HTTPS, and only uses URLs that are controlled by the creators of the JavaScript engine or, in the case of JavaScriptCore on Linux, the port maintainers.
 
 ## Author
 

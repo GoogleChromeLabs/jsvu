@@ -18,5 +18,4 @@ const updateEngine = require('../../shared/engine.js');
 module.exports = updateEngine({
 	name: 'V8',
 	id: 'v8',
-	verifyChecksum: false,
 });

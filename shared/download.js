@@ -13,7 +13,6 @@
 
 'use strict';
 
-const crypto = require('crypto');
 const fs = require('fs');
 
 const ProgressBar = require('progress');
@@ -21,13 +20,7 @@ const tempy = require('tempy');
 
 const get = require('./get.js');
 
-const hash = (data) => {
-	const hasher = crypto.createHash('sha256');
-	hasher.update(data);
-	return hasher.digest('hex');
-};
-
-const download = ({ url, checksum }) => {
+const download = (url) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const bar = new ProgressBar('  [:bar] :percent', {
@@ -47,19 +40,12 @@ const download = ({ url, checksum }) => {
 			// Clear the progress bar.
 			console.log('\x1B[1A\x1B[2K\x1B[1A');
 			const buffer = response.body;
-			if (checksum !== undefined) {
-				const actualChecksum = hash(buffer);
-				if (actualChecksum !== checksum) {
-					reject(`Invalid checksum. Expected: ${
-						checksum} Actual: ${actualChecksum}`);
-				}
-			}
 			// Passing in `name` ensures that `tempy` creates a temporary directory
 			// in which the file is created. Thus, we can later extract the archive
 			// within this same directory and use wildcards to move its contents,
 			// knowing that there are no other files in the directory.
 			const filePath = tempy.file({
-				name: checksum !== undefined ? checksum.slice(0, 8) : 'jsvutmpf'
+				name: 'jsvutmpf',
 			});
 			fs.writeFileSync(filePath, buffer);
 			resolve(filePath);

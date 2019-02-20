@@ -18,8 +18,4 @@ const updateEngine = require('../../shared/engine.js');
 module.exports = updateEngine({
 	name: 'JavaScriptCore',
 	id: 'javascriptcore',
-	// Checksums are only available for the Linux builds. Since other
-	// builds lack checksums, and all downloads take place over HTTPS
-	// anyway, we don’t verify checksums for JavaScriptCore.
-	verifyChecksum: false,
 });
