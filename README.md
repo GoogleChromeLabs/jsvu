@@ -40,6 +40,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅ <sup>\*</sup> | ✅ <sup>\*</sup>     | ✅        | ✅        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                  | ✅               | ✅                   | ✅        | ✅        |
+| [**V8 debug**][v8]        | `v8-debug`                | ✅                  | ✅               | ✅                   | ✅        | ✅        |
 | [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ✅               | ✅ <sup>(32)</sup>   | ✅        | ✅        |
 
 <sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
@@ -107,6 +108,8 @@ jsvu --os=mac64 --engines=all
 # Equivalent to:
 jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8,xs
 ```
+
+Note that `--engines=all` does not install the `v8-debug` binaries.
 
 ## Security considerations
 
