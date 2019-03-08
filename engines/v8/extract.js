@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ const execa = require('execa');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		await unzip({
@@ -28,7 +28,7 @@ const extract = ({ filePath, engine, os }) => {
 			to: tmpPath,
 		});
 		const installer = new Installer({
-			engine,
+			engine: binary,
 			path: tmpPath,
 		});
 		installer.installLibrary('icudtl.dat');
@@ -36,26 +36,26 @@ const extract = ({ filePath, engine, os }) => {
 		installer.installLibrary('snapshot_blob.bin');
 		if (os.startsWith('win')) {
 			installer.installBinary(
-				{ 'd8.exe': 'v8.exe' },
+				{ 'd8.exe': `${binary}.exe` },
 				{ symlink: false }
 			);
 			installer.installScript({
-				name: 'v8.cmd',
+				name: `${binary}.cmd`,
 				generateScript: (targetPath) => {
 					return `
 						@echo off
-						"${targetPath}\\v8.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
+						"${targetPath}\\${binary}.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
 					`;
 				}
 			});
 		} else {
-			installer.installBinary({ 'd8': 'v8' }, { symlink: false });
+			installer.installBinary({ 'd8': binary }, { symlink: false });
 			installer.installScript({
-				name: 'v8',
+				name: binary,
 				generateScript: (targetPath) => {
 					return `
 						#!/usr/bin/env bash
-						"${targetPath}/v8" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
+						"${targetPath}/${binary}" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
 					`;
 				}
 			});

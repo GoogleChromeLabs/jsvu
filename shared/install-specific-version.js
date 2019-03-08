@@ -13,35 +13,24 @@
 
 'use strict';
 
-const { getStatus, setStatus } = require('../shared/status.js');
-
 const log = require('../shared/log.js');
 const download = require('../shared/download.js');
 
-const updateEngine = async ({ name, id, alias }) => {
+const installSpecificEngineVersion = async ({ name, id, alias, os, version }) => {
 
 	const getSpecificVersion = require(`../engines/${id}/get-specific-version.js`);
-	const getLatestVersion = require(`../engines/${id}/get-latest-version.js`);
 	const predictUrl = require(`../engines/${id}/predict-url.js`);
 	const extract = require(`../engines/${id}/extract.js`);
 	const test = require(`../engines/${id}/test.js`);
 
 	try {
 
-		const status = getStatus();
-		console.assert(status.os, '`status.os` is defined');
-
-		log.start(`Finding the latest ${name} version…`);
-		const version = await getLatestVersion(status.os);
-		log.updateSuccess(`Found latest ${name} version: v${version}.`);
-
-		if (status[id] === version) {
-			log.failure(`${name} v${version} is already installed.`);
-			return;
-		}
+		log.start(`Finding ${name} v${version}…`);
+		version = await getSpecificVersion(version);
+		log.updateSuccess(`Found specific ${name} version: v${version}.`);
 
 		log.start(`Predicting URL…`);
-		const url = predictUrl(version, status.os);
+		const url = predictUrl(version, os);
 		log.updateSuccess(`URL: ${url}`);
 
 		log.start('Downloading…');
@@ -49,27 +38,24 @@ const updateEngine = async ({ name, id, alias }) => {
 		log.updateSuccess(`Download completed.`);
 
 		log.start('Extracting…');
+		const binary = `${id}-${version}`;
+		alias = `${alias}-${version}`;
 		await extract({
 			filePath: filePath,
-			binary: id,
+			binary: binary,
 			alias: alias,
-			os: status.os,
+			os: os,
 		}); // Note: this adds output to the log.
 		log.success(`Extraction completed.`);
 
 		log.start('Testing…');
 		await test({
-			binary: id,
+			binary: binary,
 			alias: alias,
 		});
 		log.updateSuccess('Testing completed.');
 
 		log.success(`${name} v${version} has been installed! 🎉`);
-
-		// Write version data to the status file, so we can later avoid
-		// reinstalling the same version.
-		status[id] = version;
-		setStatus(status);
 
 	} catch (error) {
 		log.failure(error);
@@ -77,4 +63,4 @@ const updateEngine = async ({ name, id, alias }) => {
 
 };
 
-module.exports = updateEngine;
+module.exports = installSpecificEngineVersion;

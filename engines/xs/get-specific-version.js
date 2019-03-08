@@ -13,14 +13,10 @@
 
 'use strict';
 
-const predictFileName = require('./predict-file-name.js');
-
-const predictUrl = (version, os) => {
-	const fileName = predictFileName(os);
-	const url =
-		`https://storage.googleapis.com/chromium-v8/official/canary/v8-${
-			fileName}-rel-${version}.zip`;
-	return url;
+const getSpecificVersion = (version) => {
+	// If we ever want to add logic that maps e.g. `'8.7'` to the latest
+	// available version in that range (e.g. `'8.7.0'`), it can go here.
+	return version;
 };
 
-module.exports = predictUrl;
+module.exports = getSpecificVersion;

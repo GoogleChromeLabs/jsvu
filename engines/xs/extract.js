@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ const execa = require('execa');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		await unzip({
@@ -28,25 +28,25 @@ const extract = ({ filePath, engine, os }) => {
 			to: tmpPath,
 		});
 		const installer = new Installer({
-			engine,
+			engine: binary,
 			path: tmpPath,
 		});
 		if (os.startsWith('win')) {
 			installer.installBinary(
-				{ 'xst.exe': 'xs.exe' },
+				{ 'xst.exe': `${binary}.exe` },
 				{ symlink: false }
 			);
 			installer.installScript({
-				name: 'xs.cmd',
+				name: `${binary}.cmd`,
 				generateScript: (targetPath) => {
 					return `
 						@echo off
-						"${targetPath}\\xs.exe" %*
+						"${targetPath}\\${binary}.exe" %*
 					`;
 				}
 			});
 		} else {
-			installer.installBinary({ 'xst': 'xs' }, { symlink: true });
+			installer.installBinary({ 'xst': binary }, { symlink: true });
 		}
 		resolve();
 	});

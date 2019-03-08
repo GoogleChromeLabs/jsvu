@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ const tar = require('tar');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, alias, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		if (os.startsWith('win')) {
@@ -39,36 +39,36 @@ const extract = ({ filePath, engine, os }) => {
 			case 'linux32':
 			case 'linux64': {
 				const installer = new Installer({
-					engine,
+					engine: binary,
 					path: `${tmpPath}/ChakraCoreFiles`,
 				});
 				installer.installLibraryGlob('lib/*');
-				installer.installBinary({ 'bin/ch': 'chakra' });
-				installer.installBinarySymlink({ 'chakra': 'ch' });
-				installer.installLicense({ 'LICENSE': 'LICENSE-chakra' });
+				installer.installBinary({ 'bin/ch': binary });
+				installer.installBinarySymlink({ [binary]: alias });
+				installer.installLicense({ 'LICENSE': `LICENSE-${binary}` });
 				break;
 			}
 			case 'win32':
 			case 'win64': {
 				const installer = new Installer({
-					engine,
+					engine: binary,
 					path: `${tmpPath}/${os === 'win32' ?
 						'x86_release' : 'x64_release'}`,
 				});
 				installer.installLibraryGlob('*.pdb');
 				installer.installLibraryGlob('*.dll');
 				installer.installBinary(
-					{ 'ch.exe': 'chakra.exe' },
+					{ 'ch.exe': `${binary}.exe` },
 					{ symlink: false }
 				);
 				installer.installScript({
-					name: 'chakra.cmd',
-					alias: 'ch.cmd',
+					name: `${binary}.cmd`,
+					alias: `${alias}.cmd`,
 					symlink: false,
 					generateScript: (targetPath) => {
 						return `
 							@echo off
-							"${targetPath}\\chakra.exe" %*
+							"${targetPath}\\${binary}.exe" %*
 						`;
 					}
 				});

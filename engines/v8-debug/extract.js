@@ -20,7 +20,7 @@ const execa = require('execa');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		await unzip({
@@ -28,7 +28,7 @@ const extract = ({ filePath, engine, os }) => {
 			to: tmpPath,
 		});
 		const installer = new Installer({
-			engine,
+			engine: binary,
 			path: tmpPath,
 		});
 		installer.installLibrary('icudtl.dat');
@@ -37,13 +37,13 @@ const extract = ({ filePath, engine, os }) => {
 		switch (os) {
 			case 'mac64': {
 				installer.installLibraryGlob('*.dylib');
-				installer.installBinary({ 'd8': 'v8-debug' }, { symlink: false });
+				installer.installBinary({ 'd8': binary }, { symlink: false });
 				installer.installScript({
-					name: 'v8-debug',
+					name: binary,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							"${targetPath}/v8-debug" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
+							"${targetPath}/${binary}" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
 						`;
 					}
 				});
@@ -52,13 +52,13 @@ const extract = ({ filePath, engine, os }) => {
 			case 'linux32':
 			case 'linux64': {
 				installer.installLibraryGlob('*.so');
-				installer.installBinary({ 'd8': 'v8-debug' }, { symlink: false });
+				installer.installBinary({ 'd8': binary }, { symlink: false });
 				installer.installScript({
-					name: 'v8-debug',
+					name: binary,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							"${targetPath}/v8-debug" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
+							"${targetPath}/${binary}" --natives_blob="${targetPath}/natives_blob.bin" --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
 						`;
 					}
 				});
@@ -68,15 +68,15 @@ const extract = ({ filePath, engine, os }) => {
 			case 'win64': {
 				installer.installLibraryGlob('*.dll');
 				installer.installBinary(
-					{ 'd8.exe': 'v8-debug.exe' },
+					{ 'd8.exe': `${binary}.exe` },
 					{ symlink: false }
 				);
 				installer.installScript({
-					name: 'v8-debug.cmd',
+					name: `${binary}.cmd`,
 					generateScript: (targetPath) => {
 						return `
 							@echo off
-							"${targetPath}\\v8-debug.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
+							"${targetPath}\\${binary}.exe" --natives_blob="${targetPath}\\natives_blob.bin" --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
 						`;
 					}
 				});

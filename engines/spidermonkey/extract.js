@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ const path = require('path');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, alias, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		await unzip({
@@ -26,27 +26,27 @@ const extract = ({ filePath, engine, os }) => {
 			to: tmpPath,
 		});
 		const installer = new Installer({
-			engine,
+			engine: binary,
 			path: tmpPath,
 		});
 		switch (os) {
 			case 'mac64': {
 				installer.installLibraryGlob('*.dylib');
-				installer.installBinary({ 'js': 'spidermonkey' });
-				installer.installBinarySymlink({ 'spidermonkey': 'sm' });
+				installer.installBinary({ 'js': binary });
+				installer.installBinarySymlink({ [binary]: alias });
 				break;
 			}
 			case 'linux32':
 			case 'linux64': {
 				installer.installLibraryGlob('*.so');
-				installer.installBinary({ 'js': 'spidermonkey' }, { symlink: false });
+				installer.installBinary({ 'js': binary }, { symlink: false });
 				installer.installScript({
-					name: 'spidermonkey',
-					alias: 'sm',
+					name: binary,
+					alias: alias,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							LD_LIBRARY_PATH="${targetPath}" "${targetPath}/spidermonkey" "$@"
+							LD_LIBRARY_PATH="${targetPath}" "${targetPath}/${binary}" "$@"
 						`;
 					}
 				});
@@ -56,17 +56,17 @@ const extract = ({ filePath, engine, os }) => {
 			case 'win64': {
 				installer.installLibraryGlob('*.dll');
 				installer.installBinary(
-					{ 'js.exe': 'spidermonkey.exe' },
+					{ 'js.exe': `${binary}.exe` },
 					{ symlink: false }
 				);
 				installer.installScript({
-					name: 'spidermonkey.cmd',
-					alias: 'sm.cmd',
+					name: `${binary}.cmd`,
+					alias: `${alias}.cmd`,
 					symlink: false,
 					generateScript: (targetPath) => {
 						return `
 							@echo off
-							"${targetPath}\\spidermonkey.exe" %*
+							"${targetPath}\\${binary}.exe" %*
 						`;
 					}
 				});
