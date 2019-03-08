@@ -111,6 +111,36 @@ jsvu --os=mac64 --engines=chakra,javascriptcore,spidermonkey,v8,xs
 
 Note that `--engines=all` does not install the `v8-debug` binaries.
 
+## Installing specific versions
+
+jsvu also supports installing specific versions alongside the main engine binaries (which it keeps up to date). Here’s an example:
+
+```sh
+jsvu v8@7.2.502
+```
+
+Binaries installed using this method are named `${BINARY}-${VERSION}`, so that the above example installs a binary named `v8-7.2.502`. This way, there’s never any conflict with the main `v8` binary, which jsvu can keep up to date.
+
+This feature works for all the supported engines:
+
+```sh
+jsvu chakra@1.11.6
+jsvu javascriptcore@242640
+jsvu spidermonkey@66.0b13
+jsvu v8@7.2.502
+jsvu v8-debug@v7.1.302
+jsvu xs@8.7.0
+```
+
+If you pass in an invalid version number, or if the JavaScript engine creators don’t provide a precompiled binary for that specific version, jsvu shows an error.
+
+As a shorthand, for `v8` and `v8-debug` builds, jsvu can even figure out the last known good revision within a [milestone](https://v8.dev/docs/version-numbers). To install the latest available V8 v7.2.x for example, run:
+
+```sh
+jsvu v8@7.2
+# jsvu figures out that this means v7.2.502, and then installs that version.
+```
+
 ## Security considerations
 
 _jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsvu` rather than, say, `/usr/bin`.

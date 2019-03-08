@@ -13,26 +13,26 @@
 
 'use strict';
 
-const get = require('../../shared/get.js');
-
-const getLatestVersion = () => {
-	// Note: It’d be nice to just use
-	// https://product-details.mozilla.org/1.0/firefox_versions.json
-	// but it doesn’t seem to be as up-to-date. At the time of writing
-	// it lists v58.0b4 instead of v58.0b5, whereas the resource below
-	// does include v58.0b5. 🤷🏼‍♂️
-	const url = 'https://product-details.mozilla.org/1.0/firefox_history_development_releases.json';
+const getSpecificVersion = (version) => {
+	const [major, minor, build, patch] = version.split('.');
+	if (build) {
+		// Assume exact version.
+		return version;
+	}
 	return new Promise(async (resolve, reject) => {
 		try {
-			const response = await get(url, {
-				json: true
+			const matchResponse = require('../../shared/match-response.js');
+			const build = await matchResponse({
+				url: `https://raw.githubusercontent.com/v8/v8/${
+					major}.${minor}-lkgr/include/v8-version.h`,
+				regex: /#define V8_BUILD_NUMBER (\d+)/,
 			});
-			const version = Object.keys(response.body).pop();
+			const version = `${major}.${minor}.${build}`;
 			resolve(version);
 		} catch (error) {
-			reject(error.response.body);
+			reject(error);
 		}
 	});
 };
 
-module.exports = getLatestVersion;
+module.exports = getSpecificVersion;

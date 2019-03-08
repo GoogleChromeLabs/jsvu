@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -22,37 +22,12 @@ const jsvuPath = config.path;
 
 const statusFilePath = `${jsvuPath}/status.json`;
 
-const getConfigFromFile = () => {
+const getStatus = () => {
 	try {
 		return require(statusFilePath);
 	} catch (error) {
 		return {};
 	}
-};
-
-const getStatus = () => {
-	const status = {};
-	const args = process.argv.slice(2);
-	for (const arg of args) {
-		if (arg.startsWith('--os=')) {
-			const os = arg.split('=')[1];
-			status.os = os;
-		}
-		else if (arg.startsWith('--engines=')) {
-			const enginesArg = arg.split('=')[1];
-			const engines = enginesArg === 'all' ?
-				['chakra', 'javascriptcore', 'spidermonkey', 'v8', 'xs'] :
-				enginesArg.split(',');
-			status.engines = engines;
-		}
-	}
-	if (status.os && status.engines) {
-		return status;
-	}
-	if (status.engines) {
-		return { ...getConfigFromFile(), engines: status.engines };
-	}
-	return getConfigFromFile();
 };
 
 const setStatus = (status) => {

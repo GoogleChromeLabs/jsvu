@@ -21,15 +21,15 @@ const tempy = require('tempy');
 const config = require('../../shared/config.js');
 const jsvuPath = config.path;
 
-const test = async () => {
+const test = async ({ binary, alias }) => {
 	const path = tempy.file();
 	const program = `print('Hi!');\n`;
 	fs.writeFileSync(path, program);
 	console.assert(
-		(await execa(`${jsvuPath}/v8-debug`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/${binary}`, [path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/v8-debug`, ['-e', program])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/${binary}`, ['-e', program])).stdout === 'Hi!'
 	);
 };
 

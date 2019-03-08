@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@ const tempy = require('tempy');
 const config = require('../../shared/config.js');
 const jsvuPath = config.path;
 
-const test = async () => {
+const test = async ({ binary, alias }) => {
 	const path = tempy.file();
 	fs.writeFileSync(path, `print('Hi!');\n`);
 	console.assert(
-		(await execa(`${jsvuPath}/spidermonkey`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/${binary}`, [path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/sm`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuPath}/${alias}`, [path])).stdout === 'Hi!'
 	);
 };
 

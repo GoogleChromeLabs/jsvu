@@ -13,9 +13,8 @@
 
 'use strict';
 
-const updateEngine = require('../../shared/engine.js');
-
-module.exports = updateEngine({
+module.exports = {
 	name: 'V8 debug',
 	id: 'v8-debug',
-});
+	alias: false,
+};

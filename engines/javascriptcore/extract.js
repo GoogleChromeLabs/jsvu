@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc.
+// Copyright 2019 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the “License”);
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ const execa = require('execa');
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 
-const extract = ({ filePath, engine, os }) => {
+const extract = ({ filePath, binary, alias, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
 		await unzip({
@@ -30,18 +30,18 @@ const extract = ({ filePath, engine, os }) => {
 		switch (os) {
 			case 'mac64': {
 				const installer = new Installer({
-					engine,
+					engine: binary,
 					path: `${tmpPath}/Release`,
 				});
 				installer.installLibraryGlob('JavaScriptCore.framework/*');
-				installer.installBinary({ 'jsc': 'javascriptcore' }, { symlink: false });
+				installer.installBinary({ 'jsc': binary }, { symlink: false });
 				installer.installScript({
-					name: 'javascriptcore',
-					alias: 'jsc',
+					name: binary,
+					alias: alias,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							DYLD_FRAMEWORK_PATH="${targetPath}" DYLD_LIBRARY_PATH="${targetPath}" "${targetPath}/javascriptcore" "$@"
+							DYLD_FRAMEWORK_PATH="${targetPath}" DYLD_LIBRARY_PATH="${targetPath}" "${targetPath}/${binary}" "$@"
 						`;
 					}
 				});
@@ -50,19 +50,19 @@ const extract = ({ filePath, engine, os }) => {
 			case 'linux32':
 			case 'linux64': {
 				const installer = new Installer({
-					engine,
+					engine: binary,
 					path: tmpPath,
 				});
 				installer.installLibraryGlob('lib/*');
-				installer.installBinary({ 'bin/jsc': 'javascriptcore' }, { symlink: false });
+				installer.installBinary({ 'bin/jsc': binary }, { symlink: false });
 				installer.installScript({
-					name: 'javascriptcore',
-					alias: 'jsc',
+					name: binary,
+					alias: alias,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
 							LD_LIBRARY_PATH="${targetPath}/lib" exec "${targetPath}/lib/ld-linux${
-								os === 'linux64' ? '-x86-64' : '' }.so.2" "${targetPath}/javascriptcore" "$@"
+								os === 'linux64' ? '-x86-64' : '' }.so.2" "${targetPath}/${binary}" "$@"
 						`;
 					}
 				});
@@ -71,7 +71,7 @@ const extract = ({ filePath, engine, os }) => {
 			case 'win32':
 			case 'win64': {
 				const installer = new Installer({
-					engine,
+					engine: binary,
 					path: `${tmpPath}/bin${os === 'win64' ? '64' : '32'}`,
 				});
 				installer.installLibraryGlob('JavaScriptCore.resources/*');
@@ -82,8 +82,8 @@ const extract = ({ filePath, engine, os }) => {
 				// to `javascriptcore.exe` on Windows.
 				installer.installBinary('jsc.exe', { symlink: false });
 				installer.installScript({
-					name: 'javascriptcore.cmd',
-					alias: 'jsc.cmd',
+					name: `${binary}.cmd`,
+					alias: `${alias}.cmd`,
 					symlink: false,
 					generateScript: (targetPath) => {
 						return `
