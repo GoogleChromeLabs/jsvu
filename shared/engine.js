@@ -18,7 +18,7 @@ const { getStatus, setStatus } = require('../shared/status.js');
 const log = require('../shared/log.js');
 const download = require('../shared/download.js');
 
-const updateEngine = async ({ name, id, alias }) => {
+const updateEngine = async ({ status, name, id, alias }) => {
 
 	const getSpecificVersion = require(`../engines/${id}/get-specific-version.js`);
 	const getLatestVersion = require(`../engines/${id}/get-latest-version.js`);
@@ -28,7 +28,6 @@ const updateEngine = async ({ name, id, alias }) => {
 
 	try {
 
-		const status = getStatus();
 		console.assert(status.os, '`status.os` is defined');
 
 		log.start(`Finding the latest ${name} version…`);

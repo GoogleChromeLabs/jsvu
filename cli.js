@@ -182,7 +182,10 @@ const promptEngines = () => {
 	// Install the desired JavaScript engines.
 	const updateEngine = require('./shared/engine.js');
 	for (const engine of status.engines) {
-		await updateEngine(require(`./engines/${engine}/index.js`));
+		await updateEngine({
+			status: status,
+			...require(`./engines/${engine}/index.js`),
+		});
 	}
 
 })();
