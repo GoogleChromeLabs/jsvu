@@ -50,7 +50,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
-[v8]: https://bugs.chromium.org/p/v8/issues/detail?id=5918
+[v8]: https://bugs.chromium.org/p/chromium/issues/detail?id=936383
 [xs]: https://github.com/Moddable-OpenSource/moddable-xst
 
 ## Integration with eshost-cli
