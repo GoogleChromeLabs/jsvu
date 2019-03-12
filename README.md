@@ -128,7 +128,7 @@ jsvu chakra@1.11.6
 jsvu javascriptcore@242640
 jsvu spidermonkey@66.0b13
 jsvu v8@7.2.502
-jsvu v8-debug@v7.1.302
+jsvu v8-debug@7.1.302
 jsvu xs@8.7.0
 ```
 
