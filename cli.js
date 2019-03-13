@@ -123,7 +123,13 @@ const promptEngines = () => {
 
 	const args = process.argv.slice(2);
 	for (const arg of args) {
-		if (arg.startsWith('--os=')) {
+		if (arg.startsWith('--help') || arg.startsWith('-h')) {
+			console.log('\nFor help on script usage and available arguments, please check the online documentation at:');
+			console.log('https://github.com/GoogleChromeLabs/jsvu#readme');
+
+			return;
+		}
+		else if (arg.startsWith('--os=')) {
 			const os = arg.split('=')[1];
 			status.os = os;
 		}
