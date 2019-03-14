@@ -123,7 +123,7 @@ const promptEngines = () => {
 
 	const args = process.argv.slice(2);
 	for (const arg of args) {
-		if (arg.startsWith('--help') || arg.startsWith('-h')) {
+		if (arg === '--help' || arg === '-h') {
 			console.log('\nFor help on script usage and available arguments, please check the online documentation at:');
 			console.log('https://github.com/GoogleChromeLabs/jsvu#readme');
 
