@@ -13,10 +13,11 @@
 
 'use strict';
 
+const { setStatus } = require('../shared/status.js');
 const log = require('../shared/log.js');
 const download = require('../shared/download.js');
 
-const installSpecificEngineVersion = async ({ name, id, alias, os, version }) => {
+const installSpecificEngineVersion = async ({ status, name, id, alias }) => {
 
 	const getSpecificVersion = require(`../engines/${id}/get-specific-version.js`);
 	const predictUrl = require(`../engines/${id}/predict-url.js`);
@@ -25,12 +26,23 @@ const installSpecificEngineVersion = async ({ name, id, alias, os, version }) =>
 
 	try {
 
+		const version = status.version;
 		log.start(`Finding ${name} v${version}…`);
-		version = await getSpecificVersion(version);
-		log.updateSuccess(`Found specific ${name} version: v${version}.`);
+		const fullVersion = await getSpecificVersion(version);
+		log.updateSuccess(`Found specific ${name} version: v${fullVersion}.`);
+
+		if (
+			status.versions &&
+			status.versions[id] &&
+			status.versions[id][version] === fullVersion
+		) {
+			log.failure(`${name} v${fullVersion} is already installed.`);
+			return;
+		}
 
 		log.start(`Predicting URL…`);
-		const url = predictUrl(version, os);
+		const os = status.os;
+		const url = predictUrl(fullVersion, os);
 		log.updateSuccess(`URL: ${url}`);
 
 		log.start('Downloading…');
@@ -38,8 +50,8 @@ const installSpecificEngineVersion = async ({ name, id, alias, os, version }) =>
 		log.updateSuccess(`Download completed.`);
 
 		log.start('Extracting…');
-		const binary = `${id}-${version}`;
-		alias = `${alias}-${version}`;
+		const binary = `${id}-${fullVersion}`;
+		alias = `${alias}-${fullVersion}`;
 		await extract({
 			filePath: filePath,
 			binary: binary,
@@ -55,7 +67,26 @@ const installSpecificEngineVersion = async ({ name, id, alias, os, version }) =>
 		});
 		log.updateSuccess('Testing completed.');
 
-		log.success(`${name} v${version} has been installed! 🎉`);
+		log.success(`${name} v${fullVersion} has been installed! 🎉`);
+
+		// Write version data to the status file, so we can later avoid
+		// reinstalling the same version.
+		if (status.versions === undefined) {
+			status.versions = {
+				[id]: {
+					[version]: fullVersion,
+				},
+			};
+		} else {
+			if (status.versions[id] === undefined) {
+				status.versions[id] = {
+					[version]: fullVersion,
+				};
+			} else {
+				status.versions[id][version] = fullVersion;
+			}
+		}
+		setStatus(status);
 
 	} catch (error) {
 		log.failure(error);

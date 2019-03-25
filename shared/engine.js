@@ -13,14 +13,12 @@
 
 'use strict';
 
-const { getStatus, setStatus } = require('../shared/status.js');
-
+const { setStatus } = require('../shared/status.js');
 const log = require('../shared/log.js');
 const download = require('../shared/download.js');
 
 const updateEngine = async ({ status, name, id, alias }) => {
 
-	const getSpecificVersion = require(`../engines/${id}/get-specific-version.js`);
 	const getLatestVersion = require(`../engines/${id}/get-latest-version.js`);
 	const predictUrl = require(`../engines/${id}/predict-url.js`);
 	const extract = require(`../engines/${id}/extract.js`);

@@ -32,7 +32,14 @@ const getStatus = () => {
 
 const setStatus = (status) => {
 	mkdirp.sync(jsvuPath);
-	fs.writeFileSync(statusFilePath, JSON.stringify(status, null, '\t'));
+	// Don’t store one-off CLI args in the persistent configuration.
+	const statusCopy = { ...status };
+	delete statusCopy.engine;
+	delete statusCopy.version;
+	fs.writeFileSync(
+		statusFilePath,
+		JSON.stringify(statusCopy, null, '\t')
+	);
 };
 
 module.exports = {

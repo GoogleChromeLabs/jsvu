@@ -148,11 +148,7 @@ const promptEngines = () => {
 
 	if (status.os === undefined) {
 		status.os = (await promptOs()).step;
-		// Don't store one-off CLI args in the persistent configuration.
-		const statusCopy = { ...status };
-		delete statusCopy.engine;
-		delete statusCopy.version;
-		setStatus(statusCopy);
+		setStatus(status);
 	} else {
 		log.success(`Read OS from config: ${status.os}`);
 	}
@@ -166,8 +162,7 @@ const promptEngines = () => {
 			require('./shared/install-specific-version.js');
 		await installSpecificEngineVersion({
 			...require(`./engines/${engine}/index.js`),
-			os: status.os,
-			version: version,
+			status: status,
 		});
 		return;
 	}
