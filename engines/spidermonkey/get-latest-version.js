@@ -27,7 +27,19 @@ const getLatestVersion = () => {
 			const response = await get(url, {
 				json: true
 			});
-			const version = Object.keys(response.body).pop();
+			const data = response.body;
+			// Don’t rely on the upstream sort order.
+			// https://github.com/GoogleChromeLabs/jsvu/issues/65
+			let latestVersion = 0;
+			let latestTimestamp = 0;
+			for (const [key, value] of Object.entries(data)) {
+				const timestamp = +new Date(value);
+				if (latestTimestamp < timestamp) {
+					latestTimestamp = timestamp;
+					latestVersion = key;
+				}
+			}
+			const version = latestVersion;
 			resolve(version);
 		} catch (error) {
 			reject(error.response.body);
