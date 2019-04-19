@@ -127,12 +127,7 @@ const promptEngines = () => {
 
 	const args = process.argv.slice(2);
 	for (const arg of args) {
-		if (arg === '--help' || arg === '-h') {
-			console.log('\nFor help on script usage and available arguments, please check the online documentation:');
-			console.log('https://github.com/GoogleChromeLabs/jsvu#readme');
-			return;
-		}
-		else if (arg.startsWith('--os=')) {
+		if (arg.startsWith('--os=')) {
 			const os = arg.split('=')[1];
 			status.os = os;
 		}
@@ -147,6 +142,19 @@ const promptEngines = () => {
 			const [engine, version] = arg.split('@');
 			status.engine = engine;
 			status.version = version;
+		}
+		else {
+			const wantsHelp = arg === '--help' || arg === '-h';
+			if (!wantsHelp) {
+				console.error('\nUnrecognized argument: ' + JSON.stringify(arg) + '\n');
+			}
+			console.log('[--os=(' + osChoices.map(choice => choice.value).join('|') + ')]')
+			console.log('[--engines=(' + engineChoices.map(choice => choice.value).join('|') + '),...]')
+			console.log('[<engine>@<version>]')
+
+			console.log('\nComplete documentation is online:');
+			console.log('https://github.com/GoogleChromeLabs/jsvu#readme');
+			return;
 		}
 	}
 

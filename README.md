@@ -32,7 +32,7 @@ On first run, `jsvu` prompts you for your operating system and architecture, and
 
 To update the installed JavaScript engines later on, just run `jsvu` again.
 
-## Supported engines
+## Supported engines per OS
 
 | JavaScript engine         | Binary name               | `mac64`             | `win32`         | `win64`              | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------------------- | --------------- | -------------------- | --------- | --------- |
