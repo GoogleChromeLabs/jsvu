@@ -39,6 +39,14 @@ const getPlatform = () => {
 	}
 };
 
+const osChoices = [
+	{ name: 'macOS 64-bit',   value: 'mac64'   },
+	{ name: 'Linux 32-bit',   value: 'linux32' },
+	{ name: 'Linux 64-bit',   value: 'linux64' },
+	{ name: 'Windows 32-bit', value: 'win32'   },
+	{ name: 'Windows 64-bit', value: 'win64'   },
+];
+
 const guessOs = () => {
 	const platform = getPlatform();
 	if (platform === 'mac') {
@@ -59,54 +67,50 @@ const promptOs = () => {
 		name: 'step',
 		type: 'list',
 		message: 'What is your operating system?',
-		choices: [
-			{ name: 'macOS 64-bit',   value: 'mac64'   },
-			{ name: 'Linux 32-bit',   value: 'linux32' },
-			{ name: 'Linux 64-bit',   value: 'linux64' },
-			{ name: 'Windows 32-bit', value: 'win32'   },
-			{ name: 'Windows 64-bit', value: 'win64'   },
-		],
+		choices: osChoices,
 		default: guessOs(),
 	});
 };
+
+const engineChoices = [
+	{
+		name: 'Chakra/ChakraCore',
+		value: 'chakra',
+		checked: true,
+	},
+	{
+		name: 'JavaScriptCore',
+		value: 'javascriptcore',
+		checked: true,
+	},
+	{
+		name: 'SpiderMonkey',
+		value: 'spidermonkey',
+		checked: true,
+	},
+	{
+		name: 'V8',
+		value: 'v8',
+		checked: true,
+	},
+	{
+		name: 'V8 debug',
+		value: 'v8-debug',
+		checked: false,
+	},
+	{
+		name: 'XS',
+		value: 'xs',
+		checked: true,
+	},
+];
 
 const promptEngines = () => {
 	return inquirer.prompt({
 		name: 'step',
 		type: 'checkbox',
 		message: 'Which JavaScript engines would you like to install?',
-		choices: [
-			{
-				name: 'Chakra/ChakraCore',
-				value: 'chakra',
-				checked: true,
-			},
-			{
-				name: 'JavaScriptCore',
-				value: 'javascriptcore',
-				checked: true,
-			},
-			{
-				name: 'SpiderMonkey',
-				value: 'spidermonkey',
-				checked: true,
-			},
-			{
-				name: 'V8',
-				value: 'v8',
-				checked: true,
-			},
-			{
-				name: 'V8 debug',
-				value: 'v8-debug',
-				checked: false,
-			},
-			{
-				name: 'XS',
-				value: 'xs',
-				checked: true,
-			},
-		],
+		choices: engineChoices,
 	});
 };
 
@@ -135,7 +139,7 @@ const promptEngines = () => {
 		else if (arg.startsWith('--engines=')) {
 			const enginesArg = arg.split('=')[1];
 			const engines = enginesArg === 'all' ?
-				['chakra', 'javascriptcore', 'spidermonkey', 'v8', 'xs'] :
+				engineChoices.filter(choice => choice.checked).map(choice => choice.value) :
 				enginesArg.split(',');
 			status.engines = engines;
 		}
