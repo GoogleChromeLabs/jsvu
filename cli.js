@@ -148,9 +148,9 @@ const promptEngines = () => {
 			if (!wantsHelp) {
 				console.error('\nUnrecognized argument: ' + JSON.stringify(arg) + '\n');
 			}
-			console.log('[--os=(' + osChoices.map(choice => choice.value).join('|') + ')]')
-			console.log('[--engines=(' + engineChoices.map(choice => choice.value).join('|') + '),...]')
-			console.log('[<engine>@<version>]')
+			console.log('[<engine>@<version>]');
+			console.log('[--os=(' + osChoices.map(choice => choice.value).join('|') + ')]');
+			console.log('[--engines=(' + engineChoices.map(choice => choice.value).join('|') + '),…]');
 
 			console.log('\nComplete documentation is online:');
 			console.log('https://github.com/GoogleChromeLabs/jsvu#readme');
