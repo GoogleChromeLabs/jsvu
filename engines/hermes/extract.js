@@ -38,9 +38,35 @@ const extract = ({ filePath, binary, alias, os }) => {
 				break;
 			}
 			case 'win64': {
-				installer.installBinary({ 'hermes.exe': `${binary}.exe` });
-				installer.installBinary({ 'hermes-repl.exe': `${binary}-repl.exe` });
+				installer.installBinary(
+					{ 'hermes.exe': `${binary}.exe` },
+					{ symlink: false }
+				);
+				installer.installBinary(
+					{ 'hermes-repl.exe': `${binary}-repl.exe` },
+					{ symlink: false }
+				);
 				installer.installLibraryGlob('*.dll');
+				installer.installScript({
+					name: `${binary}.cmd`,
+					symlink: false,
+					generateScript: (targetPath) => {
+						return `
+							@echo off
+							"${targetPath}\\${binary}.exe" %*
+						`;
+					}
+				});
+				installer.installScript({
+					name: `${binary}-repl.cmd`,
+					symlink: false,
+					generateScript: (targetPath) => {
+						return `
+							@echo off
+							"${targetPath}\\${binary}-repl.exe" %*
+						`;
+					}
+				});
 				break;
 			}
 		}
