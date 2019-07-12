@@ -79,6 +79,11 @@ const engineChoices = [
 		checked: true,
 	},
 	{
+		name: 'Hermes',
+		value: 'hermes',
+		checked: true,
+	},
+	{
 		name: 'JavaScriptCore',
 		value: 'javascriptcore',
 		checked: true,
