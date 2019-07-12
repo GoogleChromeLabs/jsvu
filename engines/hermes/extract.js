@@ -39,7 +39,7 @@ const extract = ({ filePath, binary, alias, os }) => {
 			}
 			case 'win64': {
 				installer.installBinary({ 'hermes.exe': `${binary}.exe` });
-				installer.installBinary({ 'hermes-repl': `${binary}-repl.exe` });
+				installer.installBinary({ 'hermes-repl.exe': `${binary}-repl.exe` });
 				installer.installLibraryGlob('*.dll');
 				break;
 			}
