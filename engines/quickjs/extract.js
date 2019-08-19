@@ -15,8 +15,9 @@
 
 const path = require('path');
 
-const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
+
+const { Installer } = require('../../shared/installer.js');
 
 const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
@@ -29,22 +30,11 @@ const extract = ({ filePath, binary, os }) => {
 			engine: binary,
 			path: tmpPath,
 		});
-		if (os.startsWith('win')) {
-			installer.installBinary(
-				{ 'xst.exe': `${binary}.exe` },
-				{ symlink: false }
-			);
-			installer.installScript({
-				name: `${binary}.cmd`,
-				generateScript: (targetPath) => {
-					return `
-						@echo off
-						"${targetPath}\\${binary}.exe" %*
-					`;
-				}
-			});
-		} else {
-			installer.installBinary({ 'xst': binary }, { symlink: true });
+		switch (os) {
+			case 'linux64': {
+				installer.installBinary({ 'qjsbn': binary });
+				break;
+			}
 		}
 		resolve();
 	});

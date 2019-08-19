@@ -15,8 +15,6 @@
 
 const path = require('path');
 
-const execa = require('execa');
-
 const { Installer } = require('../../shared/installer.js');
 const unzip = require('../../shared/unzip.js');
 

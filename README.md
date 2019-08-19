@@ -39,6 +39,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                 | ✅               | ✅                 | ❌        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅                 | ❌               | ✅                 | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                 | ✅ <sup>\*</sup> | ✅ <sup>\*</sup>   | ✅        | ✅        |
+| [**QuickJS**][quickjs]    | `quickjs`                 | ❌                 | ✅               | ❌                 | ❌        | ❌        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                 | ✅               | ✅                 | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                 | ✅               | ✅                 | ✅        | ✅        |
 | [**V8 debug**][v8]        | `v8-debug`                | ✅                 | ✅               | ✅                 | ✅        | ✅        |
@@ -50,8 +51,9 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [hermes]: https://github.com/facebook/hermes/issues/17
-[sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
+[quickjs]: https://github.com/GoogleChromeLabs/jsvu/issues/73
+[sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [v8]: https://bugs.chromium.org/p/chromium/issues/detail?id=936383
 [xs]: https://github.com/Moddable-OpenSource/moddable-xst
 
@@ -72,6 +74,7 @@ Then, tell `eshost-cli` where `jsvu` installs each JavaScript engine.
 ```sh
 eshost --add 'Chakra' ch ~/.jsvu/chakra
 eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
+eshost --add 'QuickJS' qjs ~/.jsvu/quickjs
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/v8
@@ -106,9 +109,9 @@ On your personal devices, the only command you’ll ever need is `jsvu` as descr
 However, there are use cases for running jsvu within non-interactive environments (e.g. as part of continuous integration), where it’s desirable to bypass the initial `jsvu` prompt asking to confirm your operating system, architecture, and the list of JavaScript engines to install. Here’s how to do that:
 
 ```sh
-jsvu --os=mac64 --engines=all
+jsvu --os=linux64 --engines=all
 # Equivalent to:
-jsvu --os=mac64 --engines=chakra,hermes,javascriptcore,spidermonkey,v8,xs
+jsvu --os=linux64 --engines=chakra,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
 ```
 
 Note that `--engines=all` does not install the `v8-debug` binaries.
@@ -129,6 +132,7 @@ This feature works for all the supported engines:
 jsvu chakra@1.11.6
 jsvu hermes@0.1.0
 jsvu javascriptcore@242640
+jsvu quickjs@2019-08-18
 jsvu spidermonkey@66.0b13
 jsvu v8@7.2.502
 jsvu v8-debug@7.1.302

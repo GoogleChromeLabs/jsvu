@@ -89,6 +89,11 @@ const engineChoices = [
 		checked: true,
 	},
 	{
+		name: 'QuickJS',
+		value: 'quickjs',
+		checked: true,
+	},
+	{
 		name: 'SpiderMonkey',
 		value: 'spidermonkey',
 		checked: true,
