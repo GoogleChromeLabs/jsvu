@@ -39,7 +39,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                 | ✅               | ✅                 | ❌        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅                 | ❌               | ✅                 | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                 | ✅ <sup>\*</sup> | ✅ <sup>\*</sup>   | ✅        | ✅        |
-| [**QuickJS**][quickjs]    | `quickjs`                 | ❌                 | ✅               | ❌                 | ❌        | ❌        |
+| [**QuickJS**][quickjs]    | `quickjs`                 | ❌                 | ❌               | ❌                 | ❌        | ✅        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                 | ✅               | ✅                 | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                 | ✅               | ✅                 | ✅        | ✅        |
 | [**V8 debug**][v8]        | `v8-debug`                | ✅                 | ✅               | ✅                 | ✅        | ✅        |
