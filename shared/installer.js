@@ -51,6 +51,11 @@ class Installer {
 		const to = `${this.targetPath}/${fileName}`;
 		console.log(`Installing library to ${tildify(to)}…`);
 		fse.ensureDirSync(path.dirname(to));
+		const from = `${this.sourcePath}/${fileName}`;
+		// Workaround for https://github.com/GoogleChromeLabs/jsvu/issues/81.
+		if (!fse.existsSync(from) || fse.statSync(from).size === 1) {
+			return false;
+		}
 		fse.moveSync(
 			`${this.sourcePath}/${fileName}`,
 			to,
