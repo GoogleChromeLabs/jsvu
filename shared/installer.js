@@ -48,21 +48,17 @@ class Installer {
 		fse.ensureDirSync(this.targetPath);
 	}
 	installLibrary(fileName) {
-		const to = `${this.targetPath}/${fileName}`;
-		console.log(`Installing library to ${tildify(to)}…`);
-		fse.ensureDirSync(path.dirname(to));
 		const from = `${this.sourcePath}/${fileName}`;
 		// Workaround for https://github.com/GoogleChromeLabs/jsvu/issues/81.
 		if (!fse.existsSync(from) || fse.statSync(from).size === 1) {
 			return false;
 		}
-		fse.moveSync(
-			`${this.sourcePath}/${fileName}`,
-			to,
-			{
-				overwrite: true,
-			}
-		);
+		const to = `${this.targetPath}/${fileName}`;
+		console.log(`Installing library to ${tildify(to)}…`);
+		fse.ensureDirSync(path.dirname(to));
+		fse.moveSync(from, to, {
+			overwrite: true,
+		});
 	}
 	installLibraryGlob(pattern) {
 		const filePaths = glob.sync(`${this.sourcePath}/${pattern}`);
