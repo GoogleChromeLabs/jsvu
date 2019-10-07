@@ -59,6 +59,7 @@ class Installer {
 		fse.moveSync(from, to, {
 			overwrite: true,
 		});
+		return true;
 	}
 	installLibraryGlob(pattern) {
 		const filePaths = glob.sync(`${this.sourcePath}/${pattern}`);
