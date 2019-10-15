@@ -139,7 +139,7 @@ const promptEngines = () => {
 	for (const arg of args) {
 		if (arg.startsWith('--os=')) {
 			const os = arg.split('=')[1];
-			status.os = os;
+			status.os = os === 'default' ? guessOs() : os;
 		}
 		else if (arg.startsWith('--engines=')) {
 			const enginesArg = arg.split('=')[1];
@@ -159,7 +159,7 @@ const promptEngines = () => {
 				console.error('\nUnrecognized argument: ' + JSON.stringify(arg) + '\n');
 			}
 			console.log('[<engine>@<version>]');
-			console.log(`[--os={${ osChoices.map(choice => choice.value).join(',') }}]`);
+			console.log(`[--os={${ osChoices.map(choice => choice.value).join(',') },default}]`);
 			console.log(`[--engines={${ engineChoices.map(choice => choice.value).join(',') }},…]`);
 
 			console.log('\nComplete documentation is online:');

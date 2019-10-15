@@ -114,6 +114,8 @@ jsvu --os=linux64 --engines=all
 jsvu --os=linux64 --engines=chakra,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
 ```
 
+If the operating system and architecture are not known in advance, the `--os=default` flag attempts to guess the correct value from the running environment. This might not be right for example if running a 32-bit Node.js process on a 64-bit machine.
+
 Note that `--engines=all` does not install the `v8-debug` binaries.
 
 ## Installing specific versions
