@@ -67,7 +67,9 @@ First, install `eshost-cli`:
 npm install -g eshost-cli
 ```
 
-Then, tell `eshost-cli` where `jsvu` installs each JavaScript engine.
+Then, automatically configure jsvu-installed hosts using `eshost --configure-jsvu`
+
+Or tell `eshost-cli` where `jsvu` installs each JavaScript engine.
 
 ### Linux/Mac
 
