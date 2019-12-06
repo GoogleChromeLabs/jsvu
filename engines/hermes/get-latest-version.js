@@ -16,7 +16,7 @@
 const get = require('../../shared/get.js');
 
 const getLatestVersion = (os) => {
-	const url = 'https://registry.npmjs.org/hermesvm';
+	const url = 'https://registry.npmjs.org/hermes-engine';
 	return new Promise(async (resolve, reject) => {
 		try {
 			const response = await get(url, {
