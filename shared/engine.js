@@ -38,7 +38,7 @@ const updateEngine = async ({ status, name, id, alias }) => {
 		}
 
 		log.start(`Predicting URL…`);
-		const url = predictUrl(version, status.os);
+		const url = await predictUrl(version, status.os);
 		log.updateSuccess(`URL: ${url}`);
 
 		log.start('Downloading…');

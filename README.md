@@ -37,6 +37,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | JavaScript engine         | Binary name               | `mac64`            | `win32`          | `win64`            | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------------------ | ---------------- | ------------------ | --------- | --------- |
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                 | ✅               | ✅                 | ❌        | ✅        |
+| [**engine262**][engine262]| `engine262`               | ✅                 | ✅               | ✅                 | ✅        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅                 | ❌               | ✅                 | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                 | ✅ <sup>\*</sup> | ✅ <sup>\*</sup>   | ✅        | ✅        |
 | [**QuickJS**][quickjs]    | `quickjs`                 | ❌                 | ❌               | ❌                 | ❌        | ✅        |
@@ -50,6 +51,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 - On 64-bit Windows, download the latest [WinCairoRequirements](https://github.com/WebKitForWindows/WinCairoRequirements/releases) and add its `bin64` directory to your `PATH`.
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
+[engine262]: https://github.com/engine262/engine262
 [hermes]: https://github.com/facebook/hermes/issues/17
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
 [quickjs]: https://github.com/GoogleChromeLabs/jsvu/issues/73
@@ -79,6 +81,7 @@ eshost --configure-jsvu
 
 ```sh
 eshost --add 'Chakra' ch ~/.jsvu/chakra
+eshost --add 'engine262' engine262 ~/.jsvu/engine262
 eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
 eshost --add 'QuickJS' qjs ~/.jsvu/quickjs
 eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
@@ -91,6 +94,7 @@ eshost --add 'XS' xs ~/.jsvu/xs
 
 ```bat
 eshost --add "Chakra" ch "%USERPROFILE%\.jsvu\chakra.cmd"
+eshost --add "engine262" enigne262 "%USERPROFILE%\.jsvu\engine262.cmd"
 eshost --add "JavaScriptCore" jsc "%USERPROFILE%\.jsvu\javascriptcore.cmd"
 eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\spidermonkey.cmd"
 eshost --add "V8 --harmony" d8 "%USERPROFILE%\.jsvu\v8.cmd" --args "--harmony"
@@ -117,7 +121,7 @@ However, there are use cases for running jsvu within non-interactive environment
 ```sh
 jsvu --os=linux64 --engines=all
 # Equivalent to:
-jsvu --os=linux64 --engines=chakra,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
+jsvu --os=linux64 --engines=chakra,engine262,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
 ```
 
 If the operating system and architecture are not known in advance, the `--os=default` flag attempts to guess the correct value from the running environment. This might not be right for example if running a 32-bit Node.js process on a 64-bit machine.
