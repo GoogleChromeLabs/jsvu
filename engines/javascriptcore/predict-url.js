@@ -16,7 +16,8 @@
 const predictUrl = (version, os) => {
 	switch (os) {
 		case 'mac64': {
-			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-highsierra-x86_64-release/${version}.zip`;
+			const macOsVersion = version > 254225 ? 'mojave' : 'highsierra';
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${macOsVersion}-x86_64-release/${version}.zip`;
 		}
 		case 'linux32': {
 			return `https://webkitgtk.org/jsc-built-products/x86_32/release/${version}.zip`;
