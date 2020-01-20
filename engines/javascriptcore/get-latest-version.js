@@ -45,7 +45,7 @@ const getLatestVersion = (os) => {
 		}
 		case 'mac64': {
 			return matchResponse({
-				url: 'https://build.webkit.org/builders/Apple%20High%20Sierra%20Release%20%28Build%29?numbuilds=25',
+				url: 'https://build.webkit.org/builders/Apple%20Mojave%20Release%20%28Build%29?numbuilds=25',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
 		}
