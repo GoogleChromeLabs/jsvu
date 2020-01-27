@@ -32,7 +32,7 @@ const extract = ({ filePath, binary, os }) => {
 		});
 		switch (os) {
 			case 'linux64': {
-				installer.installBinary({ 'qjsbn': binary });
+				installer.installBinary({ 'qjs': binary });
 				break;
 			}
 		}
