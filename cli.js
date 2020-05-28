@@ -79,6 +79,11 @@ const engineChoices = [
 		checked: true,
 	},
 	{
+		name: 'GraalJS',
+		value: 'graaljs',
+		checked: true,
+	},
+	{
 		name: 'Hermes',
 		value: 'hermes',
 		checked: true,
