@@ -138,7 +138,7 @@ This feature works for all the supported engines:
 
 ```sh
 jsvu chakra@1.11.6
-jsvu hermes@0.1.0
+jsvu hermes@0.6.0
 jsvu javascriptcore@242640
 jsvu quickjs@2019-08-18
 jsvu spidermonkey@66.0b13

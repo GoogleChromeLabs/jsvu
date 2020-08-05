@@ -28,8 +28,8 @@ const test = async ({ binary }) => {
 	console.assert(
 		(await execa(`${jsvuPath}/${binary}`, [path])).stdout === 'Hi!'
 	);
-	const out = (await execa(`${jsvuPath}/${binary}-repl`, ['-help'])).stdout;
-	console.assert(out.includes('Hermes REPL driver'));
+	const out = (await execa(`${jsvuPath}/${binary}`, ['-help'])).stdout;
+	console.assert(out.includes('Hermes driver'));
 	// TODO: Test hermes-repl <<< 'print("Hi!");', maybe?
 };
 

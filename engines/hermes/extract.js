@@ -34,7 +34,7 @@ const extract = ({ filePath, binary, alias, os }) => {
 			case 'mac64':
 			case 'linux64': {
 				installer.installBinary({ 'hermes': binary });
-				installer.installBinary({ 'hermes-repl': `${binary}-repl` });
+				installer.installBinary({ 'hermesc': `${binary}-compiler` });
 				break;
 			}
 			case 'win64': {
@@ -43,7 +43,7 @@ const extract = ({ filePath, binary, alias, os }) => {
 					{ symlink: false }
 				);
 				installer.installBinary(
-					{ 'hermes-repl.exe': `${binary}-repl.exe` },
+					{ 'hermesc.exe': `${binary}-compiler.exe` },
 					{ symlink: false }
 				);
 				installer.installLibraryGlob('*.dll');
@@ -58,12 +58,12 @@ const extract = ({ filePath, binary, alias, os }) => {
 					}
 				});
 				installer.installScript({
-					name: `${binary}-repl.cmd`,
+					name: `${binary}-compiler.cmd`,
 					symlink: false,
 					generateScript: (targetPath) => {
 						return `
 							@echo off
-							"${targetPath}\\${binary}-repl.exe" %*
+							"${targetPath}\\${binary}-compiler.exe" %*
 						`;
 					}
 				});
