@@ -20,15 +20,10 @@ const getLatestVersion = (os) => {
 		case 'linux32':
 		case 'linux64': {
 			return matchResponse({
+				// https://github.com/GoogleChromeLabs/jsvu/issues/98
 				url: `https://webkitgtk.org/jsc-built-products/x86_${
-					os === 'linux32' ? '32' : '64' }/release/?C=M;O=D`,
-				// Check for the most recent *.sha256sum file rather than the
-				// most recent *.zip file to avoid the race condition where the
-				// ZIP file has not fully been uploaded yet. The *.sha256sum
-				// files are written last, so once one is available the
-				// corresponding ZIP file is guaranteed to be available.
-				// https://mths.be/bww
-				regex: /<a href="(\d+)\.sha256sum">/,
+					os === 'linux32' ? '32' : '64' }/release/LAST-IS`,
+				regex: /(\d+)\.zip/,
 			});
 		}
 		case 'win32': {
