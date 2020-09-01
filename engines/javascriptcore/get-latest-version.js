@@ -17,18 +17,11 @@ const matchResponse = require('../../shared/match-response.js');
 
 const getLatestVersion = (os) => {
 	switch (os) {
-		case 'linux32':
 		case 'linux64': {
 			return matchResponse({
-				url: `https://webkitgtk.org/jsc-built-products/x86_${
-					os === 'linux32' ? '32' : '64' }/release/?C=M;O=D`,
-				// Check for the most recent *.sha256sum file rather than the
-				// most recent *.zip file to avoid the race condition where the
-				// ZIP file has not fully been uploaded yet. The *.sha256sum
-				// files are written last, so once one is available the
-				// corresponding ZIP file is guaranteed to be available.
-				// https://mths.be/bww
-				regex: /<a href="(\d+)\.sha256sum">/,
+				// https://github.com/GoogleChromeLabs/jsvu/issues/98
+				url: `https://webkitgtk.org/jsc-built-products/x86_64/release/LAST-IS`,
+				regex: /(\d+)\.zip/,
 			});
 		}
 		case 'win32': {
@@ -48,6 +41,11 @@ const getLatestVersion = (os) => {
 				url: 'https://build.webkit.org/builders/Apple%20Mojave%20Release%20%28Build%29?numbuilds=25',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
+		}
+		default: {
+			throw new Error(
+				`JavaScriptCore does not offer precompiled ${os} binaries.`
+			);
 		}
 	}
 };
