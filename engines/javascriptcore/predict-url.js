@@ -19,9 +19,6 @@ const predictUrl = (version, os) => {
 			const macOsVersion = version > 254225 ? 'mojave' : 'highsierra';
 			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${macOsVersion}-x86_64-release/${version}.zip`;
 		}
-		case 'linux32': {
-			return `https://webkitgtk.org/jsc-built-products/x86_32/release/${version}.zip`;
-		}
 		case 'linux64': {
 			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}.zip`;
 		}

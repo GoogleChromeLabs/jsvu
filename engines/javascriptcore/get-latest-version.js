@@ -17,12 +17,10 @@ const matchResponse = require('../../shared/match-response.js');
 
 const getLatestVersion = (os) => {
 	switch (os) {
-		case 'linux32':
 		case 'linux64': {
 			return matchResponse({
 				// https://github.com/GoogleChromeLabs/jsvu/issues/98
-				url: `https://webkitgtk.org/jsc-built-products/x86_${
-					os === 'linux32' ? '32' : '64' }/release/LAST-IS`,
+				url: `https://webkitgtk.org/jsc-built-products/x86_64/release/LAST-IS`,
 				regex: /(\d+)\.zip/,
 			});
 		}
@@ -43,6 +41,11 @@ const getLatestVersion = (os) => {
 				url: 'https://build.webkit.org/builders/Apple%20Mojave%20Release%20%28Build%29?numbuilds=25',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
+		}
+		default: {
+			throw new Error(
+				`JavaScriptCore does not offer precompiled ${os} binaries.`
+			);
 		}
 	}
 };
