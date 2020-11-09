@@ -15,6 +15,15 @@
 
 const predictFileName = (os) => {
 	switch (os) {
+		case 'win32': {
+			return 'win-i686';
+		}
+		case 'win64': {
+			return 'win-x86_64';
+		}
+		case 'linux32': {
+			return 'linux-i686';
+		}
 		case 'linux64': {
 			return 'linux-x86_64';
 		}
