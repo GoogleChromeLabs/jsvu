@@ -26,19 +26,19 @@ const getLatestVersion = (os) => {
 		}
 		case 'win32': {
 			return matchResponse({
-				url: 'https://build.webkit.org/builders/Apple%20Win%20Release%20%28Build%29?numbuilds=25',
+				url: 'https://build.webkit.org/builders/Apple-Win-10-Release-Build?numbuilds=1',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
 		}
 		case 'win64': {
 			return matchResponse({
-				url: 'https://build.webkit.org/builders/WinCairo%2064-bit%20WKL%20Release%20%28Build%29?numbuilds=25',
+				url: 'https://build.webkit.org/builders/WinCairo-64-bit-WKL-Release-Build?numbuilds=1',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
 		}
 		case 'mac64': {
 			return matchResponse({
-				url: 'https://build.webkit.org/builders/Apple%20Mojave%20Release%20%28Build%29?numbuilds=25',
+				url: 'https://build.webkit.org/builders/Apple-Mojave-Release-Build?numbuilds=1',
 				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
 			});
 		}
