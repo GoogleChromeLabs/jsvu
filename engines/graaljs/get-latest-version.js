@@ -16,11 +16,11 @@
 const get = require('../../shared/get.js');
 
 const getLatestVersion = () => {
-	const url = 'https://github.com/graalvm/graaljs/releases';
+	const url = 'https://github.com/oracle/graaljs/releases';
 	return new Promise(async (resolve, reject) => {
 		try {
 			const response = await get(url);
-			const regex = /href="\/graalvm\/graaljs\/releases\/tag\/vm-([^"]+)">Graal/;
+			const regex = /href="\/oracle\/graaljs\/releases\/tag\/vm-([^"]+)">Graal/;
 			const version = regex.exec(response.body)[1];
 			resolve(version);
 		} catch (error) {

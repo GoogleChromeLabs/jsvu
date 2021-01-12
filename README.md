@@ -51,7 +51,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 - On 64-bit Windows, download the latest [WinCairoRequirements](https://github.com/WebKitForWindows/WinCairoRequirements/releases) and add its `bin64` directory to your `PATH`.
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
-[graaljs]: https://github.com/graalvm/graaljs
+[graaljs]: https://github.com/oracle/graaljs
 [hermes]: https://github.com/facebook/hermes/issues/17
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
 [quickjs]: https://github.com/GoogleChromeLabs/jsvu/issues/73
