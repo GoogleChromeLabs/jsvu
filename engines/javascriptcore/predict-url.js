@@ -16,14 +16,13 @@
 const predictUrl = (version, os) => {
 	switch (os) {
 		case 'mac64': {
-			const macOsVersion = version > 254225 ? 'mojave' : 'highsierra';
-			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${macOsVersion}-x86_64-release/${version}.zip`;
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/mac-catalina-x86_64-release/${version}.zip`;
+		}
+		case 'mac64arm': {
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/mac-bigsur-x86_64%20arm64-release/${version}.zip`;
 		}
 		case 'linux64': {
 			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}.zip`;
-		}
-		case 'win32': {
-			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/win-i386-release/${version}.zip`;
 		}
 		case 'win64': {
 			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/wincairo-x86_64-release/${version}.zip`;

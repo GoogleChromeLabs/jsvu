@@ -13,7 +13,35 @@
 
 'use strict';
 
+const get = require('../../shared/get.js');
 const matchResponse = require('../../shared/match-response.js');
+
+const getBuildId = async (builderId) => {
+	const url = `https://build.webkit.org/api/v2/builders/${builderId
+	}/builds?order=-number&limit=1&state_string=build%20successful&complete=true`;
+	const response = await get(url, {
+		json: true,
+	});
+	const data = response.body;
+	const buildId = data.builds[0].buildid;
+	return buildId;
+};
+
+const getRevision = async (buildId) => {
+	const url = `https://build.webkit.org/api/v2/buildsets/${buildId}`;
+	const response = await get(url, {
+		json: true,
+	});
+	const data = response.body;
+	const revision = data.buildsets[0].sourcestamps[0].revision;
+	return revision;
+};
+
+const getLatestRevisionFromBuilder = async (builderId) => {
+	const buildId = await getBuildId(builderId);
+	const revision = await getRevision(buildId);
+	return revision;
+};
 
 const getLatestVersion = (os) => {
 	switch (os) {
@@ -24,23 +52,20 @@ const getLatestVersion = (os) => {
 				regex: /(\d+)\.zip/,
 			});
 		}
-		case 'win32': {
-			return matchResponse({
-				url: 'https://build.webkit.org/builders/Apple-Win-10-Release-Build?numbuilds=1',
-				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
-			});
-		}
 		case 'win64': {
-			return matchResponse({
-				url: 'https://build.webkit.org/builders/WinCairo-64-bit-WKL-Release-Build?numbuilds=1',
-				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
-			});
+			// Builder name: WinCairo-64-bit-WKL-Release-Build
+			// https://build.webkit.org/#/builders/27
+			return getLatestRevisionFromBuilder(27);
 		}
 		case 'mac64': {
-			return matchResponse({
-				url: 'https://build.webkit.org/builders/Apple-Mojave-Release-Build?numbuilds=1',
-				regex: /<td><span[^>]+><a href="[^"]+">(\d+)<\/a><\/span><\/td>\s*<td class="success">success<\/td>/,
-			});
+			// Builder name: Apple-Catalina-Release-Build
+			// https://build.webkit.org/#/builders/54
+			return getLatestRevisionFromBuilder(54);
+		}
+		case 'mac64arm': {
+			// Builder name: Apple-BigSur-Release-Build
+			// https://build.webkit.org/#/builders/29
+			return getLatestRevisionFromBuilder(29);
 		}
 		default: {
 			throw new Error(
