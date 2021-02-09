@@ -1,4 +1,4 @@
-# jsvu [![Build status](https://travis-ci.org/GoogleChromeLabs/jsvu.svg?branch=master)](https://travis-ci.org/GoogleChromeLabs/jsvu)
+# jsvu [![Build status](https://travis-ci.org/GoogleChromeLabs/jsvu.svg?branch=main)](https://travis-ci.org/GoogleChromeLabs/jsvu) [![jsvu on npm](https://img.shields.io/npm/v/jsvu)](https://www.npmjs.com/package/jsvu)
 
 _jsvu_ is the <b>J</b>ava<b>S</b>cript (engine) <b>V</b>ersion <b>U</b>pdater.
 
