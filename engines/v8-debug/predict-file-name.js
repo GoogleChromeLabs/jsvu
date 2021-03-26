@@ -24,7 +24,7 @@ const predictFileName = (os) => {
 			return os;
 		default: {
 			throw new Error(
-				`V8-debug does not offer precompiled ${os} binaries.`
+				`V8 does not offer precompiled ${os} debug binaries.`
 			);
 		}
 	}
