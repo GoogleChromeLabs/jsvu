@@ -40,16 +40,20 @@ const getPlatform = () => {
 };
 
 const osChoices = [
-	{ name: 'macOS 64-bit',   value: 'mac64'   },
-	{ name: 'Linux 32-bit',   value: 'linux32' },
-	{ name: 'Linux 64-bit',   value: 'linux64' },
-	{ name: 'Windows 32-bit', value: 'win32'   },
-	{ name: 'Windows 64-bit', value: 'win64'   },
+	{ name: 'macOS 64-bit',     value: 'mac64'    },
+	{ name: 'macOS M1 64-bit',  value: 'mac64arm' },
+	{ name: 'Linux 32-bit',     value: 'linux32'  },
+	{ name: 'Linux 64-bit',     value: 'linux64'  },
+	{ name: 'Windows 32-bit',   value: 'win32'    },
+	{ name: 'Windows 64-bit',   value: 'win64'    },
 ];
 
 const guessOs = () => {
 	const platform = getPlatform();
 	if (platform === 'mac') {
+		if (os.arch() === 'arm64') {
+			return 'mac64arm';
+		}
 		return 'mac64';
 	}
 	// Note: `os.arch()` returns the architecture of the Node.js process,

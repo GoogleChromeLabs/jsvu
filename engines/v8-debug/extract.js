@@ -33,7 +33,8 @@ const extract = ({ filePath, binary, os }) => {
 		const hasNativesBlob = installer.installLibrary('natives_blob.bin');
 		installer.installLibrary('snapshot_blob.bin');
 		switch (os) {
-			case 'mac64': {
+			case 'mac64':
+			case 'mac64arm': {
 				installer.installLibraryGlob('*.dylib');
 				installer.installBinary({ 'd8': binary }, { symlink: false });
 				installer.installScript({
