@@ -34,7 +34,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 ## Supported engines per OS
 
-| JavaScript engine         | Binary name               | `mac64`            | `mac-arm64`     | `win32` | `win64`            | `linux32` | `linux64` |
+| JavaScript engine         | Binary name               | `mac64`            | `mac64arm`     | `win32` | `win64`            | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------------------ | ----------- | ------- | ------------------ | --------- | --------- |
 | [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ❌           | ✅      | ✅                 | ❌        | ✅        |
 | [**GraalJS**][graaljs]    | `graaljs`                 | ✅                  | ❌           | ❌      | ✅                 | ❌        | ✅        |
