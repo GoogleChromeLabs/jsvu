@@ -167,6 +167,28 @@ _jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsv
 
 _jsvu_ downloads files over HTTPS, and only uses URLs that are controlled by the creators of the JavaScript engine or, in the case of JavaScriptCore on Linux, the port maintainers.
 
+## For maintainers
+
+### How to publish new releases
+
+1. On the `main` branch, bump the version number in `package.json`:
+
+    ```sh
+    npm version patch -m 'Release v%s'
+    ```
+
+    Instead of `patch`, use `minor` or `major` [as needed](https://semver.org/).
+
+    Note that this produces a Git commit + tag.
+
+1. Push the release commit and tag:
+
+    ```sh
+    git push
+    ```
+
+    Our CI then automatically publishes the new release to npm.
+
 ## Author
 
 [Mathias Bynens](https://mathiasbynens.be/) ([@mathias](https://twitter.com/mathias))
