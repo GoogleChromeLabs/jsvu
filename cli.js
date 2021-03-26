@@ -51,7 +51,7 @@ const osChoices = [
 const guessOs = () => {
 	const platform = getPlatform();
 	if (platform === 'mac') {
-		if(os.arch() === 'arm64') {
+		if (os.arch() === 'arm64') {
 			return 'mac-arm64';
 		}
 		return 'mac64';
