@@ -40,8 +40,8 @@ const getPlatform = () => {
 };
 
 const osChoices = [
-	{ name: 'macOS 64-bit',    value: 'mac64'     },
-	{ name: 'macOS M1 64-bit', value: 'mac64arm' },
+	{ name: 'macOS 64-bit',     value: 'mac64'    },
+	{ name: 'macOS M1 64-bit',  value: 'mac64arm' },
 	{ name: 'Linux 32-bit',     value: 'linux32'  },
 	{ name: 'Linux 64-bit',     value: 'linux64'  },
 	{ name: 'Windows 32-bit',   value: 'win32'    },
