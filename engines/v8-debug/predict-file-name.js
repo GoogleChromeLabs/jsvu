@@ -15,24 +15,16 @@
 
 const predictFileName = (os) => {
 	switch (os) {
-		case 'mac64': {
-			return 'mac64';
-		}
-		case 'linux32': {
-			return 'linux32';
-		}
-		case 'linux64': {
-			return 'linux64';
-		}
-		case 'win32': {
-			return 'win32';
-		}
-		case 'win64': {
-			return 'win64';
-		}
+		case 'mac64':
+		case 'mac-arm64':
+		case 'linux32':
+		case 'linux64':
+		case 'win32':
+		case 'win64': 
+			return os;
 		default: {
 			throw new Error(
-				`V8 does not offer precompiled ${os} debug binaries.`
+				`V8-debug does not offer precompiled ${os} binaries.`
 			);
 		}
 	}
