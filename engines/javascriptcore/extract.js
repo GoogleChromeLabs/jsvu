@@ -26,6 +26,7 @@ const extract = ({ filePath, binary, alias, os }) => {
 			to: tmpPath,
 		});
 		switch (os) {
+			case 'mac64arm':
 			case 'mac64': {
 				const installer = new Installer({
 					engine: binary,
