@@ -30,7 +30,8 @@ const extract = ({ filePath, binary, alias, os }) => {
 			path: tmpPath,
 		});
 		switch (os) {
-			case 'mac64': {
+			case 'mac64':
+			case 'mac64arm': {
 				installer.installLibraryGlob('*.dylib');
 				installer.installBinary({ 'js': binary });
 				installer.installBinarySymlink({ [binary]: alias });

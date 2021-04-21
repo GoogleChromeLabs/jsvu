@@ -15,7 +15,8 @@
 
 const predictFileName = (os) => {
 	switch (os) {
-		case 'mac64': {
+		case 'mac64':
+		case 'mac64arm': {
 			return 'mac';
 		}
 		case 'linux32': {
