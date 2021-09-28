@@ -18,8 +18,6 @@ const path = require('path');
 const unzip = require('../../shared/unzip.js');
 const { Installer } = require('../../shared/installer.js');
 
-const log = require('../../shared/log.js');
-
 const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
@@ -63,17 +61,6 @@ const extract = ({ filePath, binary, os }) => {
 					}
 				});
 				break;
-			}
-			case 'mac64':
-			case 'mac64arm': {
-				const message = `macos of ${os} is not support currently!`;
-				log.failure(message);
-				return reject(message);
-			}
-			default: {
-				const message = `${os} is not support now, possible os is one of win32, win64, linux32, linux64, mac64, mac64arm!`;
-				log.failure(message);
-				return reject(message);
 			}
 		}
 		resolve();
