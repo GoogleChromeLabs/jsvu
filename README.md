@@ -184,7 +184,7 @@ _jsvu_ downloads files over HTTPS, and only uses URLs that are controlled by the
 1. Push the release commit and tag:
 
     ```sh
-    git push
+    git push && git push --tags
     ```
 
     Our CI then automatically publishes the new release to npm.
