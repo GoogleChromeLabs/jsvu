@@ -19,16 +19,16 @@ const execa = require('execa');
 const tempy = require('tempy');
 
 const config = require('../../shared/config.js');
-const jsvuPath = config.path;
+const jsvuBinPath = config.binPath;
 
 const test = async ({ binary }) => {
 	const path = tempy.file();
 	const program = `print('Hi!');\n`;
 	fs.writeFileSync(path, program);
 	console.assert(
-		(await execa(`${jsvuPath}/${binary}`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuBinPath}/${binary}`, [path])).stdout === 'Hi!'
 	);
-	const out = (await execa(`${jsvuPath}/${binary}`, ['-help'])).stdout;
+	const out = (await execa(`${jsvuBinPath}/${binary}`, ['-help'])).stdout;
 	console.assert(out.includes('Hermes driver'));
 	// TODO: Test hermes-repl <<< 'print("Hi!");', maybe?
 };

@@ -19,6 +19,7 @@ const mkdirp = require('mkdirp');
 
 const config = require('../shared/config.js');
 const jsvuPath = config.path;
+const jsvuBinPath = config.binPath;
 
 const statusFilePath = `${jsvuPath}/status.json`;
 
@@ -31,7 +32,7 @@ const getStatus = () => {
 };
 
 const setStatus = (status) => {
-	mkdirp.sync(jsvuPath);
+	mkdirp.sync(jsvuBinPath);
 	// Don’t store one-off CLI args in the persistent configuration.
 	const statusCopy = { ...status };
 	delete statusCopy.engine;
