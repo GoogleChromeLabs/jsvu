@@ -16,30 +16,23 @@
 const get = require('../../shared/get.js');
 const matchResponse = require('../../shared/match-response.js');
 
-const getBuildId = async (builderId) => {
+const getLatestCommitHashFromBuilder = async (builderId) => {
 	const url = `https://build.webkit.org/api/v2/builders/${builderId
-	}/builds?order=-number&limit=1&state_string=build%20successful&complete=true`;
+	}/builds?order=-number&limit=1&property=got_revision&complete=true`;
 	const response = await get(url, {
 		json: true,
 	});
 	const data = response.body;
-	const buildId = data.builds[0].buildid;
-	return buildId;
-};
-
-const getRevision = async (buildId) => {
-	const url = `https://build.webkit.org/api/v2/buildsets/${buildId}`;
-	const response = await get(url, {
-		json: true,
-	});
-	const data = response.body;
-	const revision = data.buildsets[0].sourcestamps[0].revision;
-	return revision;
+	const hash = data.builds[0].properties.got_revision[0];
+	return hash;
 };
 
 const getLatestRevisionFromBuilder = async (builderId) => {
-	const buildId = await getBuildId(builderId);
-	const revision = await getRevision(buildId);
+	const hash = await getLatestCommitHashFromBuilder(builderId);
+	const revision = await matchResponse({
+		url: `https://api.github.com/repos/WebKit/WebKit/commits/${hash}`,
+		regex: /Canonical link: https:\/\/commits\.webkit\.org\/(\d+)@main/,
+	});
 	return revision;
 };
 
