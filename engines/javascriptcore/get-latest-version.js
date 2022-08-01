@@ -42,7 +42,7 @@ const getLatestVersion = (os) => {
 			return matchResponse({
 				// https://github.com/GoogleChromeLabs/jsvu/issues/98
 				url: `https://webkitgtk.org/jsc-built-products/x86_64/release/LAST-IS`,
-				regex: /(\d+)\.zip/,
+				regex: /(\d+)@main\.zip/,
 			});
 		}
 		case 'win64': {
