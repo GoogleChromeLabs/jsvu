@@ -15,18 +15,14 @@
 
 const get = require('../../shared/get.js');
 
-const getLatestVersion = () => {
-	const url = 'https://github.com/oracle/graaljs/releases';
-	return new Promise(async (resolve, reject) => {
-		try {
-			const response = await get(url);
-			const regex = /href="\/oracle\/graaljs\/releases\/tag\/vm-([^"]+)">Graal/;
-			const version = regex.exec(response.body)[1];
-			resolve(version);
-		} catch (error) {
-			reject(error);
-		}
+const getLatestVersion = async () => {
+	const url = 'https://api.github.com/repos/oracle/graaljs/releases/latest';
+	const response = await get(url, {
+		json: true,
 	});
+	const data = response.body;
+	const version = data.tag_name.slice(3); // Strip `vm-` prefix.
+	return version;
 };
 
 module.exports = getLatestVersion;

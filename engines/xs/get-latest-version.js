@@ -21,7 +21,7 @@ const getLatestVersion = async () => {
 		json: true,
 	});
 	const data = response.body;
-	const version = data.tag_name.slice(1);
+	const version = data.tag_name.slice(1); // Strip `v` prefix.
 	return version;
 };
 
