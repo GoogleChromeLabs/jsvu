@@ -21,6 +21,7 @@ const tildify = require('tildify');
 
 const config = require('../shared/config.js');
 const jsvuPath = config.path;
+const jsvuBinPath = config.binPath;
 
 const installSingleBinary = (from, to) => {
 	console.log(`Installing binary to ${tildify(to)}…`);
@@ -78,7 +79,7 @@ class Installer {
 				);
 				if (options.symlink) {
 					installSingleBinarySymlink(
-						`${jsvuPath}/${to}`,
+						`${jsvuBinPath}/${to}`,
 						`${this.targetPath}/${to}`
 					);
 				}
@@ -91,7 +92,7 @@ class Installer {
 			);
 			if (options.symlink) {
 				installSingleBinarySymlink(
-					`${jsvuPath}/${from}`,
+					`${jsvuBinPath}/${from}`,
 					`${this.targetPath}/${from}`
 				);
 			}
@@ -102,14 +103,14 @@ class Installer {
 			for (const to of Object.keys(arg)) {
 				const from = arg[to];
 				installSingleBinarySymlink(
-					`${jsvuPath}/${from}`,
+					`${jsvuBinPath}/${from}`,
 					`${this.targetPath}/${to}`
 				);
 			}
 		} else {
 			const to = arg;
 			installSingleBinarySymlink(
-				`${jsvuPath}/${to}`,
+				`${jsvuBinPath}/${to}`,
 				`${this.targetPath}/${to}`
 			);
 		}
@@ -128,7 +129,7 @@ class Installer {
 		}
 	}
 	installScript({ name, alias, symlink, generateScript }) {
-		const to = `${jsvuPath}/${name}`;
+		const to = `${jsvuBinPath}/${name}`;
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
 		const wrapperPath = process.platform === 'win32' ?
 			`%~dp0${this.targetRelPath}` :
@@ -141,9 +142,9 @@ class Installer {
 		fse.chmodSync(to, 0o555);
 		if (alias) {
 			if (symlink) {
-				installSingleBinarySymlink(`${jsvuPath}/${alias}`, to);
+				installSingleBinarySymlink(`${jsvuBinPath}/${alias}`, to);
 			} else {
-				fse.copySync(to, `${jsvuPath}/${alias}`);
+				fse.copySync(to, `${jsvuBinPath}/${alias}`);
 			}
 		}
 	}

@@ -19,17 +19,17 @@ const execa = require('execa');
 const tempy = require('tempy');
 
 const config = require('../../shared/config.js');
-const jsvuPath = config.path;
+const jsvuBinPath = config.binPath;
 
 const test = async ({ binary, alias }) => {
 	const path = tempy.file();
 	const program = `print('Hi!');\n`;
 	fs.writeFileSync(path, program);
 	console.assert(
-		(await execa(`${jsvuPath}/${binary}`, [path])).stdout === 'Hi!'
+		(await execa(`${jsvuBinPath}/${binary}`, [path])).stdout === 'Hi!'
 	);
 	console.assert(
-		(await execa(`${jsvuPath}/${alias}`, ['-e', program])).stdout === 'Hi!'
+		(await execa(`${jsvuBinPath}/${alias}`, ['-e', program])).stdout === 'Hi!'
 	);
 };
 

@@ -16,10 +16,10 @@ Install the _jsvu_ CLI:
 npm install jsvu -g
 ```
 
-Modify your dotfiles (e.g. `~/.bashrc`) to add `~/.jsvu` to your `PATH`:
+Modify your dotfiles (e.g. `~/.bashrc`) to add `~/.jsvu/bin` to your `PATH`:
 
 ```sh
-export PATH="${HOME}/.jsvu:${PATH}"
+export PATH="${HOME}/.jsvu/bin:${PATH}"
 ```
 
 Then, run `jsvu`:
@@ -80,26 +80,26 @@ eshost --configure-jsvu
 ### Linux/Mac
 
 ```sh
-eshost --add 'Chakra' ch ~/.jsvu/chakra
-eshost --add 'GraalJS' graaljs ~/.jsvu/graaljs
-eshost --add 'JavaScriptCore' jsc ~/.jsvu/javascriptcore
-eshost --add 'QuickJS' qjs ~/.jsvu/quickjs
-eshost --add 'SpiderMonkey' jsshell ~/.jsvu/spidermonkey
-eshost --add 'V8 --harmony' d8 ~/.jsvu/v8 --args '--harmony'
-eshost --add 'V8' d8 ~/.jsvu/v8
-eshost --add 'XS' xs ~/.jsvu/xs
+eshost --add 'Chakra' ch ~/.jsvu/bin/chakra
+eshost --add 'GraalJS' graaljs ~/.jsvu/bin/graaljs
+eshost --add 'JavaScriptCore' jsc ~/.jsvu/bin/javascriptcore
+eshost --add 'QuickJS' qjs ~/.jsvu/bin/quickjs
+eshost --add 'SpiderMonkey' jsshell ~/.jsvu/bin/spidermonkey
+eshost --add 'V8 --harmony' d8 ~/.jsvu/bin/v8 --args '--harmony'
+eshost --add 'V8' d8 ~/.jsvu/bin/v8
+eshost --add 'XS' xs ~/.jsvu/bin/xs
 ```
 
 ### Windows
 
 ```bat
-eshost --add "Chakra" ch "%USERPROFILE%\.jsvu\chakra.cmd"
-eshost --add "GraalJS" graaljs "%USERPROFILE%\.jsvu\graaljs.cmd"
-eshost --add "JavaScriptCore" jsc "%USERPROFILE%\.jsvu\javascriptcore.cmd"
-eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\spidermonkey.cmd"
-eshost --add "V8 --harmony" d8 "%USERPROFILE%\.jsvu\v8.cmd" --args "--harmony"
-eshost --add "V8" d8 "%USERPROFILE%\.jsvu\v8.cmd"
-eshost --add "XS" xs "%USERPROFILE%\.jsvu\xs.cmd"
+eshost --add "Chakra" ch "%USERPROFILE%\.jsvu\bin\chakra.cmd"
+eshost --add "GraalJS" graaljs "%USERPROFILE%\.jsvu\bin\graaljs.cmd"
+eshost --add "JavaScriptCore" jsc "%USERPROFILE%\.jsvu\bin\javascriptcore.cmd"
+eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\bin\spidermonkey.cmd"
+eshost --add "V8 --harmony" d8 "%USERPROFILE%\.jsvu\bin\v8.cmd" --args "--harmony"
+eshost --add "V8" d8 "%USERPROFILE%\.jsvu\bin\v8.cmd"
+eshost --add "XS" xs "%USERPROFILE%\.jsvu\bin\xs.cmd"
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
@@ -163,7 +163,7 @@ jsvu v8@7.2
 
 ## Security considerations
 
-_jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsvu` rather than, say, `/usr/bin`.
+_jsvu_ avoids the need for `sudo` privileges by installing everything in `~/.jsvu/bin` rather than, say, `/usr/bin`.
 
 _jsvu_ downloads files over HTTPS, and only uses URLs that are controlled by the creators of the JavaScript engine or, in the case of JavaScriptCore on Linux, the port maintainers.
 

@@ -13,11 +13,10 @@
 
 'use strict';
 
-const os = require('os');
-
 const untildify = require('untildify');
 
 module.exports = {
 	path: untildify('~/.jsvu'),
+	binPath: untildify('~/.jsvu/bin'),
 	os: 'mac',
 };
