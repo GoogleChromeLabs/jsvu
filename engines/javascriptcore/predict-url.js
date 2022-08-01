@@ -16,16 +16,16 @@
 const predictUrl = (version, os) => {
 	switch (os) {
 		case 'mac64': {
-			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/mac-catalina-x86_64-release/${version}.zip`;
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-catalina-x86_64-release/${version}@main.zip`;
 		}
 		case 'mac64arm': {
-			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/mac-bigsur-x86_64%20arm64-release/${version}.zip`;
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-bigsur-x86_64%20arm64-release/${version}@main.zip`;
 		}
 		case 'linux64': {
-			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}.zip`;
+			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}@main.zip`;
 		}
 		case 'win64': {
-			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/wincairo-x86_64-release/${version}.zip`;
+			return `https://s3-us-west-2.amazonaws.com/archives.webkit.org/wincairo-x86_64-release/${version}@main.zip`;
 		}
 		default: {
 			throw new Error(
