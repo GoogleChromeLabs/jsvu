@@ -1,6 +1,6 @@
 {
 	"name": "jsvu",
-	"version": "1.13.4",
+	"version": "1.14.0",
 	"description": "JavaScript (engine) Version Updater",
 	"homepage": "https://github.com/GoogleChromeLabs/jsvu",
 	"repository": {
