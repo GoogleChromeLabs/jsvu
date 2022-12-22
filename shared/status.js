@@ -25,6 +25,8 @@ const statusFilePath = `${jsvuPath}/status.json`;
 
 const getStatus = () => {
 	try {
+		// Upgrade existing, old installations.
+		mkdirp.sync(jsvuBinPath);
 		return require(statusFilePath);
 	} catch (error) {
 		return {};

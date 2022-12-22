@@ -16,7 +16,15 @@
 const get = require('../../shared/get.js');
 const matchResponse = require('../../shared/match-response.js');
 
-const getLatestCommitHashFromBuilder = async (builderId) => {
+const hashToRevision = async (hash) => {
+	const revision = await matchResponse({
+		url: `https://api.github.com/repos/WebKit/WebKit/commits/${hash}`,
+		regex: /Canonical link: https:\/\/commits\.webkit\.org\/(\d+)@main/,
+	});
+	return revision;
+};
+
+const getLatestCommitHashOrRevisionFromBuilder = async (builderId) => {
 	const url = `https://build.webkit.org/api/v2/builders/${builderId
 	}/builds?order=-number&limit=1&property=got_revision&complete=true`;
 	const response = await get(url, {
@@ -24,15 +32,14 @@ const getLatestCommitHashFromBuilder = async (builderId) => {
 	});
 	const data = response.body;
 	const hash = data.builds[0].properties.got_revision[0];
+	// Confusingly, `hash` is either a commit hash (seemingly for modern
+	// builders) or a revision number (for older builders).
 	return hash;
 };
 
 const getLatestRevisionFromBuilder = async (builderId) => {
-	const hash = await getLatestCommitHashFromBuilder(builderId);
-	const revision = await matchResponse({
-		url: `https://api.github.com/repos/WebKit/WebKit/commits/${hash}`,
-		regex: /Canonical link: https:\/\/commits\.webkit\.org\/(\d+)@main/,
-	});
+	const hash = await getLatestCommitHashOrRevisionFromBuilder(builderId);
+	const revision = await hashToRevision(hash);
 	return revision;
 };
 
@@ -50,14 +57,11 @@ const getLatestVersion = (os) => {
 			// https://build.webkit.org/#/builders/27
 			return getLatestRevisionFromBuilder(27);
 		}
-		case 'mac64': {
-			// Builder name: Apple-Catalina-Release-Build
-			// https://build.webkit.org/#/builders/54
-			return getLatestRevisionFromBuilder(54);
-		}
+		case 'mac64':
 		case 'mac64arm': {
 			// Builder name: Apple-BigSur-Release-Build
 			// https://build.webkit.org/#/builders/29
+			// This publishes universal x86_64 + arm64 binaries.
 			return getLatestRevisionFromBuilder(29);
 		}
 		default: {
