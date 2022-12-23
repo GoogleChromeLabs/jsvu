@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
       - name: Publish
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
