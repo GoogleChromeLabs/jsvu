@@ -48,7 +48,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 <sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
 - On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).
-- On 64-bit Windows, download the latest [WinCairoRequirements](https://github.com/WebKitForWindows/WinCairoRequirements/releases) and add its `bin64` directory to your `PATH`.
+- On 64-bit Windows, download the latest [`WebKitRequirements`](https://github.com/WebKitForWindows/WebKitRequirements/releases) and add its `bin64` directory to your `PATH`.
 
 [ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [graaljs]: https://github.com/oracle/graaljs
