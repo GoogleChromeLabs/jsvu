@@ -132,11 +132,11 @@ class Installer {
 		const to = `${jsvuBinPath}/${name}`;
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
 		const wrapperPath = process.platform === 'win32' ?
-			`%~dp0${this.targetRelPath}` :
+			`%~dp0\\..\\${this.targetRelPath}` :
 			this.targetPath;
 		const contents = generateScript(wrapperPath)
 			.trimStart()
-			.replace(/\t/g, '');
+			.replaceAll('\t', '');
 		fse.removeSync(to);
 		fse.writeFileSync(to, contents);
 		fse.chmodSync(to, 0o555);
