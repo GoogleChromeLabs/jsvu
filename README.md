@@ -34,17 +34,17 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 ## Supported engines per OS
 
-| JavaScript engine         | Binary name               | `mac64`            | `mac64arm`     | `win32` | `win64`            | `linux32` | `linux64` |
-| ------------------------- | ------------------------- | ------------------ | ----------- | ------- | ------------------ | --------- | --------- |
-| [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ❌           | ✅      | ✅                 | ❌        | ✅        |
-| [**GraalJS**][graaljs]    | `graaljs`                 | ✅                  | ❌           | ❌      | ✅                 | ❌        | ✅        |
-| [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅                  | ❌           | ❌      | ✅                 | ❌        | ✅        |
-| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅           | ❌      | ✅ <sup>\*</sup>   | ❌        | ✅        |
-| [**QuickJS**][quickjs]    | `quickjs`                 | ❌                  | ❌           | ✅      | ✅                 | ✅        | ✅        |
-| [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
-| [**V8**][v8]              | `v8`                      | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
-| [**V8 debug**][v8]        | `v8-debug`                | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
-| [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ❌           | ✅      | ✅ <sup>(32)</sup> | ✅        | ✅        |
+| JavaScript engine         | Binary name               | `mac64`            | `mac64arm`     | `win32` | `win64`            | `linux32` | `linux64` | `linux64arm` |
+| ------------------------- | ------------------------- | ------------------ | ----------- | ------- | ------------------ | --------- | --------- | --------- |
+| [**Chakra**][ch]          | `chakra` or `ch`          | ✅                  | ❌           | ✅      | ✅                 | ❌        | ✅        | ❌        |
+| [**GraalJS**][graaljs]    | `graaljs`                 | ✅                  | ✅           | ❌      | ✅                 | ❌        | ✅        | ✅        |
+| [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅                  | ❌           | ❌      | ✅                 | ❌        | ✅        | ❌        |
+| [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅                  | ✅           | ❌      | ✅ <sup>\*</sup>   | ❌        | ✅        | ❌        |
+| [**QuickJS**][quickjs]    | `quickjs`                 | ❌                  | ❌           | ✅      | ✅                 | ✅        | ✅        | ❌        |
+| [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        | ❌        |
+| [**V8**][v8]              | `v8`                      | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        | ❌        |
+| [**V8 debug**][v8]        | `v8-debug`                | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        | ❌        |
+| [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ❌           | ✅      | ✅ <sup>(32)</sup> | ✅        | ✅        | ❌        |
 
 <sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
 - On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).
