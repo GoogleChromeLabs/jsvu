@@ -15,14 +15,20 @@
 
 const predictFileName = (os) => {
 	switch (os) {
+		case 'mac64arm': {
+			return 'macos-aarch64'
+		}
 		case 'mac64': {
-			return 'macos';
+			return 'macos-amd64';
 		}
 		case 'linux64': {
-			return 'linux';
+			return 'linux-amd64';
+		}
+		case 'linux64arm': {
+			return 'linux-aarch64';
 		}
 		case 'win64': {
-			return 'windows';
+			return 'windows-amd64';
 		}
 		default: {
 			throw new Error(
@@ -35,7 +41,7 @@ const predictFileName = (os) => {
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
 	const ext = os.startsWith('win') ? 'zip' : 'tar.gz';
-	const url = `https://github.com/oracle/graaljs/releases/download/vm-${version}/graaljs-${version}-${fileName}-amd64.${ext}`;
+	const url = `https://github.com/oracle/graaljs/releases/download/vm-${version}/graaljs-${version}-${fileName}.${ext}`;
 	return url;
 };
 
