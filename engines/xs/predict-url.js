@@ -40,7 +40,7 @@ const predictFileName = (os) => {
 
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
-    const url = `https://github.com/Moddable-OpenSource/moddable/releases/download/${version}/xst-${fileName}.zip`;
+	const url = `https://github.com/Moddable-OpenSource/moddable/releases/download/${version}/xst-${fileName}.zip`;
 	return url;
 };
 
