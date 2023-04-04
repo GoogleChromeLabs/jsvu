@@ -16,12 +16,12 @@
 const get = require('../../shared/get.js');
 
 const getLatestVersion = async () => {
-	const url = 'https://api.github.com/repos/Moddable-OpenSource/moddable-xst/releases/latest';
+	const url = 'https://api.github.com/repos/Moddable-OpenSource/moddable/releases/latest';
 	const response = await get(url, {
 		json: true,
 	});
 	const data = response.body;
-	const version = data.tag_name.slice(1); // Strip `v` prefix.
+	const version = data.tag_name;
 	return version;
 };
 
