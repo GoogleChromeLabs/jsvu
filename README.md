@@ -44,7 +44,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
 | [**V8 debug**][v8]        | `v8-debug`                | ✅                  | ✅           | ✅      | ✅                 | ✅        | ✅        |
-| [**XS**][xs]              | `xs`                      | ✅ <sup>(32)</sup>  | ❌           | ✅      | ✅ <sup>(32)</sup> | ✅        | ✅        |
+| [**XS**][xs]              | `xs`                      | ✅                  | ✅           | ❌      | ✅                 | ❌        | ✅        |
 
 <sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
 - On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).

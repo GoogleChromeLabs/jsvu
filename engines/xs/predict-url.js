@@ -16,19 +16,19 @@
 const predictFileName = (os) => {
 	switch (os) {
 		case 'mac64': {
-			return 'mac';
+			return 'mac64';
 		}
-		case 'linux32': {
-			return 'lin32';
+		case 'mac64arm':{
+			return 'mac64arm';
 		}
 		case 'linux64': {
 			return 'lin64';
 		}
-		case 'win32': {
-			return 'win';
+		case 'linux64arm': {
+			return 'lin64arm';
 		}
 		case 'win64': {
-			return 'win';
+			return 'win64';
 		}
 		default: {
 			throw new Error(
@@ -40,7 +40,7 @@ const predictFileName = (os) => {
 
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
-	const url = `https://github.com/Moddable-OpenSource/moddable-xst/releases/download/v${version}/xst-${fileName}.zip`;
+    const url = `https://github.com/Moddable-OpenSource/moddable/releases/download/${version}/xst-${fileName}.zip`;
 	return url;
 };
 
