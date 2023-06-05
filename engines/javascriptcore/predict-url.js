@@ -13,11 +13,14 @@
 
 'use strict';
 
+const getMacOsName = require('./get-macos-name.js');
+
 const predictUrl = (version, os) => {
 	switch (os) {
 		case 'mac64':
 		case 'mac64arm': {
-			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-bigsur-x86_64%20arm64-release/${version}@main.zip`;
+			const name = getMacOsName();
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${name}-x86_64%20arm64-release/${version}@main.zip`;
 		}
 		case 'linux64': {
 			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}@main.zip`;

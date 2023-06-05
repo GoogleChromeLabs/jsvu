@@ -15,6 +15,7 @@
 
 const get = require('../../shared/get.js');
 const matchResponse = require('../../shared/match-response.js');
+const getMacOsName = require('./get-macos-name.js');
 
 const hashToRevision = async (hash) => {
 	const revision = await matchResponse({
@@ -59,10 +60,20 @@ const getLatestVersion = (os) => {
 		}
 		case 'mac64':
 		case 'mac64arm': {
-			// Builder name: Apple-BigSur-Release-Build
-			// https://build.webkit.org/#/builders/29
-			// This publishes universal x86_64 + arm64 binaries.
-			return getLatestRevisionFromBuilder(29);
+			const name = getMacOsName();
+			if (name === 'ventura') {
+				// Builder name: Apple-Ventura-Release-Build
+				// https://build.webkit.org/#/builders/706
+				// This publishes universal x86_64 + arm64 binaries.
+				return getLatestRevisionFromBuilder(706);
+			} else if (name === 'monterey') {
+				// Builder name: Apple-Monterey-Release-Build
+				// https://build.webkit.org/#/builders/368
+				// This publishes universal x86_64 + arm64 binaries.
+				return getLatestRevisionFromBuilder(368);
+			} else {
+				throw new Error(`Unknown MacOS name: ${name}.`);
+			}
 		}
 		default: {
 			throw new Error(
