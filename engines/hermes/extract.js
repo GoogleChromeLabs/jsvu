@@ -32,6 +32,7 @@ const extract = ({ filePath, binary, alias, os }) => {
 		});
 		switch (os) {
 			case 'mac64':
+                        case 'mac64arm':
 			case 'linux64': {
 				installer.installBinary({ 'hermes': binary });
 				installer.installBinary({ 'hermesc': `${binary}-compiler` });
