@@ -16,16 +16,20 @@
 const predictFileName = (os) => {
 	switch (os) {
 		case 'win32': {
-			return 'win-i686';
+			return 'win-x86';
 		}
 		case 'win64': {
 			return 'win-x86_64';
 		}
 		case 'linux32': {
-			return 'linux-i686';
+			return 'linux-x86';
 		}
 		case 'linux64': {
 			return 'linux-x86_64';
+		}
+		case 'mac64':
+		case 'mac64arm': {
+			return 'darwin';
 		}
 		default: {
 			throw new Error(
@@ -37,7 +41,7 @@ const predictFileName = (os) => {
 
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
-	const url = `https://bellard.org/quickjs/binary_releases/quickjs-${fileName}-${version}.zip`;
+	const url = `https://github.com/quickjs-ng/quickjs/releases/download/${version}/qjs-${fileName}`;
 	return url;
 };
 
