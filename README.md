@@ -40,7 +40,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**GraalJS**][graaljs]    | `graaljs`                 | ✅      | ❌         | ❌      | ✅               | ❌        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅      | ❌         | ❌      | ✅               | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅      | ✅         | ❌      | ✅ <sup>\*</sup> | ❌        | ✅        |
-| [**QuickJS**][quickjs]    | `quickjs`                 | ❌      | ❌         | ✅      | ✅               | ✅        | ✅        |
+| [**QuickJS-ng**][quickjs] | `quickjs`                 | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 | [**SpiderMonkey**][sm]    | `spidermonkey` or `sm`    | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 | [**V8**][v8]              | `v8`                      | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 | [**V8 debug**][v8]        | `v8-debug`                | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
@@ -54,7 +54,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 [graaljs]: https://github.com/oracle/graaljs
 [hermes]: https://github.com/facebook/hermes/issues/17
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
-[quickjs]: https://github.com/GoogleChromeLabs/jsvu/issues/73
+[quickjs]: https://github.com/GoogleChromeLabs/jsvu/issues/141
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [v8]: https://bugs.chromium.org/p/chromium/issues/detail?id=936383
 [xs]: https://github.com/Moddable-OpenSource/moddable-xst

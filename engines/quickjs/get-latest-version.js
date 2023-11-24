@@ -15,20 +15,14 @@
 
 const get = require('../../shared/get.js');
 
-const getLatestVersion = () => {
-	const url = `https://bellard.org/quickjs/binary_releases/LATEST.json`;
-	return new Promise(async (resolve, reject) => {
-		try {
-			const response = await get(url, {
-				json: true,
-			});
-			const data = response.body;
-			const version = data.version;
-			resolve(version);
-		} catch (error) {
-			reject(error);
-		}
+const getLatestVersion = async () => {
+	const url = 'https://api.github.com/repos/quickjs-ng/quickjs/releases/latest';
+	const response = await get(url, {
+		json: true,
 	});
+	const data = response.body;
+	const version = data.tag_name;
+	return version;
 };
 
 module.exports = getLatestVersion;

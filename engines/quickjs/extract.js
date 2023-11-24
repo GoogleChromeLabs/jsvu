@@ -15,16 +15,12 @@
 
 const path = require('path');
 
-const unzip = require('../../shared/unzip.js');
 const { Installer } = require('../../shared/installer.js');
 
 const extract = ({ filePath, binary, os }) => {
 	return new Promise(async (resolve, reject) => {
 		const tmpPath = path.dirname(filePath);
-		await unzip({
-			from: filePath,
-			to: tmpPath,
-		});
+        const bin = path.basename(filePath);
 		const installer = new Installer({
 			engine: binary,
 			path: tmpPath,
@@ -33,30 +29,31 @@ const extract = ({ filePath, binary, os }) => {
 			case 'win32':
 			case 'win64': {
 				installer.installBinary(
-					{ 'qjs.exe': `${binary}.exe` },
+					{ [`${bin}`]: 'qjs.exe' },
 					{ symlink: false }
 				);
-				installer.installLibrary('libwinpthread-1.dll');
 				installer.installScript({
 					name: `${binary}.cmd`,
 					generateScript: (targetPath) => {
 						return `
 							@echo off
-							"${targetPath}\\${binary}.exe" %*
+							"${targetPath}\\qjs.exe" %*
 						`;
 					}
 				});
 				break;
 			}
+			case 'mac64':
+            case 'mac64arm':
 			case 'linux32':
 			case 'linux64': {
-				installer.installBinary({ 'qjs': binary });
+				installer.installBinary({ [`${bin}`]: 'qjs' });
 				installer.installScript({
 					name: binary,
 					generateScript: (targetPath) => {
 						return `
 							#!/usr/bin/env bash
-							"${targetPath}/${binary}" "$@"
+							"${targetPath}/qjs" "$@"
 						`;
 					}
 				});
