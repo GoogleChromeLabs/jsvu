@@ -30,11 +30,10 @@ const updateEngine = async ({ status, name, id, alias }) => {
 
 		log.start(`Finding the latest ${name} version…`);
 		const version = await getLatestVersion(status.os);
-		const versionToDisplay = id === "quickjs" ? `${version}` : `v${version}`
-		log.updateSuccess(`Found latest ${name} version: ${versionToDisplay}.`);
+		log.updateSuccess(`Found latest ${name} version: v${version}.`);
 
 		if (status[id] === version) {
-			log.failure(`${name} ${versionToDisplay} is already installed.`);
+			log.failure(`${name} v${version} is already installed.`);
 			return;
 		}
 
@@ -62,7 +61,7 @@ const updateEngine = async ({ status, name, id, alias }) => {
 		});
 		log.updateSuccess('Testing completed.');
 
-		log.success(`${name} ${versionToDisplay} has been installed! 🎉`);
+		log.success(`${name} v${version} has been installed! 🎉`);
 
 		// Write version data to the status file, so we can later avoid
 		// reinstalling the same version.
