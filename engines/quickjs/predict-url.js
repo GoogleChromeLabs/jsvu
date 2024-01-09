@@ -41,7 +41,7 @@ const predictFileName = (os) => {
 
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
-	const url = `https://github.com/quickjs-ng/quickjs/releases/download/${version}/qjs-${fileName}`;
+	const url = `https://github.com/quickjs-ng/quickjs/releases/download/v${version}/qjs-${fileName}`;
 	return url;
 };
 
