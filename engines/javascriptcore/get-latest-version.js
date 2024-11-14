@@ -72,10 +72,15 @@ const getLatestVersion = (os) => {
 				// This publishes universal x86_64 + arm64 binaries.
 				return getLatestRevisionFromBuilder(368);
 			} else if (name === 'sonoma') {
-				// Builder name: Apple-Monterey-Release-Build
+				// Builder name: Apple-Sonoma-Release-Build
 				// https://build.webkit.org/#/builders/938
 				// This publishes universal x86_64 + arm64 binaries.
 				return getLatestRevisionFromBuilder(938);
+			} else if (name === 'sequoia') {
+				// Builder name: Apple-Sequoia-Release-Build
+				// https://build.webkit.org/#/builders/1223
+				// This publishes universal x86_64 + arm64 binaries.
+				return getLatestRevisionFromBuilder(1223);
 			} else {
 				throw new Error(`Unknown MacOS name: ${name}.`);
 			}
