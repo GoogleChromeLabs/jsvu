@@ -103,11 +103,6 @@ const engineChoices = [
 		checked: true,
 	},
 	{
-		name: 'Escargot',
-		value: 'escargot',
-		checked: true,
-	},
-	{
 		name: 'SpiderMonkey',
 		value: 'spidermonkey',
 		checked: true,
