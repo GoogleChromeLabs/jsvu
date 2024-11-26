@@ -122,6 +122,11 @@ const engineChoices = [
 		value: 'xs',
 		checked: true,
 	},
+	{
+		name: 'Escargot',
+		value: 'escargot',
+		checked: true,
+	},
 ];
 
 const promptEngines = () => {
