@@ -44,7 +44,10 @@ const extract = ({ filePath, binary, alias, os }) => {
 			case 'linux64': {
 				const directoryName = fs.readdirSync(tmpPath).find(file => file.startsWith('graaljs'));
 				const executableName = `${directoryName}/bin/js`;
-				installer.installBinary({ [executableName]: binary });
+				installer.installBinary(executableName, { symlink: false });
+				installer.installLibraryGlob(`${directoryName}/lib/*.so`);
+				installer.installLibraryGlob(`${directoryName}/modules/*.jar`);
+				installer.installBinarySymlink({ [executableName]: binary });
 				break;
 			}
 			case 'win64': {
