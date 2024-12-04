@@ -15,20 +15,14 @@
 
 const get = require('../../shared/get.js');
 
-const getLatestVersion = (os) => {
-	const url = 'https://registry.npmjs.org/hermes-engine';
-	return new Promise(async (resolve, reject) => {
-		try {
-			const response = await get(url, {
-				json: true,
-			});
-			const data = response.body;
-			const version = data['dist-tags'].latest;
-			resolve(version);
-		} catch (error) {
-			reject(error);
-		}
+const getLatestVersion = async (os) => {
+	const url = 'https://api.github.com/repos/facebook/hermes/releases/latest';
+	const response = await get(url, {
+		json: true,
 	});
+	const data = response.body;
+	const version = data.tag_name.replace(/^v/,""); // Strip prefix.
+	return version;
 };
 
 module.exports = getLatestVersion;
