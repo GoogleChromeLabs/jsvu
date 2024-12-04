@@ -35,7 +35,9 @@ const predictFileName = (os) => {
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
 	const ext = os.startsWith('win') ? 'zip' : 'tar.gz';
-	const url = `https://github.com/oracle/graaljs/releases/download/vm-${version}/graaljs-${version}-${fileName}-amd64.${ext}`;
+	const majorVersion = parseInt(version.split(".")[0]);
+	const prefix = majorVersion >= 23 ? "graal-" : "vm-";
+	const url = `https://github.com/oracle/graaljs/releases/download/${prefix}${version}/graaljs-${version}-${fileName}-amd64.${ext}`;
 	return url;
 };
 
