@@ -35,7 +35,10 @@ const predictFileName = (os) => {
 
 const predictUrl = (version, os) => {
 	const fileName = predictFileName(os);
-	const url = `https://github.com/facebook/hermes/releases/download/v${version}/hermes-cli-${fileName}-v${version}.tar.gz`;
+	const majorVersion = parseInt(version.split('.')[0]);
+	const minorVersion = parseInt(version.split('.')[1]);
+	const suffix = majorVersion > 0 || minorVersion >= 13 ? '' : `-v${version}`;
+	const url = `https://github.com/facebook/hermes/releases/download/v${version}/hermes-cli-${fileName}${suffix}.tar.gz`;
 	return url;
 };
 
