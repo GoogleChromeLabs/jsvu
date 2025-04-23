@@ -36,7 +36,6 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 | JavaScript engine         | Binary name               | `mac64` | `mac64arm` | `win32` | `win64`          | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------- | ---------- | ------- | ---------------- | --------- | --------- |
-| [**Chakra**][ch]          | `chakra` or `ch`          | ✅      | ❌         | ✅      | ✅               | ❌        | ✅        |
 | [**GraalJS**][graaljs]    | `graaljs`                 | ✅      | ❌         | ❌      | ✅               | ❌        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅      | ✅         | ❌      | ✅               | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅      | ✅         | ❌      | ✅ <sup>\*</sup> | ❌        | ✅        |
@@ -50,7 +49,6 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 - On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).
 - On 64-bit Windows, download the latest [`WebKitRequirements`](https://github.com/WebKitForWindows/WebKitRequirements/releases) and add its `bin64` directory to your `PATH`.
 
-[ch]: https://github.com/Microsoft/ChakraCore/issues/2278#issuecomment-277301120
 [graaljs]: https://github.com/oracle/graaljs
 [hermes]: https://github.com/facebook/hermes/issues/17
 [jsc]: https://bugs.webkit.org/show_bug.cgi?id=179945
@@ -80,7 +78,6 @@ eshost --configure-jsvu
 ### Linux/Mac
 
 ```sh
-eshost --add 'Chakra' ch ~/.jsvu/bin/chakra
 eshost --add 'GraalJS' graaljs ~/.jsvu/bin/graaljs
 eshost --add 'JavaScriptCore' jsc ~/.jsvu/bin/javascriptcore
 eshost --add 'QuickJS' qjs ~/.jsvu/bin/quickjs
@@ -93,7 +90,6 @@ eshost --add 'XS' xs ~/.jsvu/bin/xs
 ### Windows
 
 ```bat
-eshost --add "Chakra" ch "%USERPROFILE%\.jsvu\bin\chakra.cmd"
 eshost --add "GraalJS" graaljs "%USERPROFILE%\.jsvu\bin\graaljs.cmd"
 eshost --add "JavaScriptCore" jsc "%USERPROFILE%\.jsvu\bin\javascriptcore.cmd"
 eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\bin\spidermonkey.cmd"
@@ -121,7 +117,7 @@ However, there are use cases for running jsvu within non-interactive environment
 ```sh
 jsvu --os=linux64 --engines=all
 # Equivalent to:
-jsvu --os=linux64 --engines=chakra,graaljs,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
+jsvu --os=linux64 --engines=graaljs,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
 ```
 
 If the operating system and architecture are not known in advance, the `--os=default` flag attempts to guess the correct value from the running environment. This might not be right for example if running a 32-bit Node.js process on a 64-bit machine.
@@ -141,7 +137,6 @@ Binaries installed using this method are named `${BINARY}-${VERSION}`, so that t
 This feature works for all the supported engines:
 
 ```sh
-jsvu chakra@1.11.6
 jsvu graaljs@20.2.0
 jsvu hermes@0.6.0
 jsvu javascriptcore@242640

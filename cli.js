@@ -78,11 +78,6 @@ const promptOs = () => {
 
 const engineChoices = [
 	{
-		name: 'Chakra/ChakraCore',
-		value: 'chakra',
-		checked: true,
-	},
-	{
 		name: 'GraalJS',
 		value: 'graaljs',
 		checked: true,
