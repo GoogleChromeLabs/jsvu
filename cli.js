@@ -208,6 +208,10 @@ const promptEngines = () => {
 	// Install the desired JavaScript engines.
 	const updateEngine = require('./shared/engine.js');
 	for (const engine of status.engines) {
+		if (engine === 'chakra') {
+			console.warn('Chakra is no longer supported. https://github.com/GoogleChromeLabs/jsvu/issues/160');
+			continue;
+		}
 		await updateEngine({
 			status: status,
 			...require(`./engines/${engine}/index.js`),
