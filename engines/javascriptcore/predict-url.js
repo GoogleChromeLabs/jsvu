@@ -20,7 +20,7 @@ const predictUrl = (version, os) => {
 		case 'mac64':
 		case 'mac64arm': {
 			const name = getMacOsName();
-			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${name}-x86_64%20arm64-release/${version}@main.zip`;
+			return `https://s3-us-west-2.amazonaws.com/minified-archives.webkit.org/mac-${name}-x86_64-arm64-release/${version}@main.zip`;
 		}
 		case 'linux64': {
 			return `https://webkitgtk.org/jsc-built-products/x86_64/release/${version}@main.zip`;
