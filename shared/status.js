@@ -15,8 +15,6 @@
 
 const fs = require('fs');
 
-const mkdirp = require('mkdirp');
-
 const config = require('../shared/config.js');
 const jsvuPath = config.path;
 const jsvuBinPath = config.binPath;
@@ -26,7 +24,7 @@ const statusFilePath = `${jsvuPath}/status.json`;
 const getStatus = () => {
 	try {
 		// Upgrade existing, old installations.
-		mkdirp.sync(jsvuBinPath);
+		fs.mkdirSync(jsvuBinPath, { recursive: true });
 		return require(statusFilePath);
 	} catch (error) {
 		return {};
@@ -34,7 +32,7 @@ const getStatus = () => {
 };
 
 const setStatus = (status) => {
-	mkdirp.sync(jsvuBinPath);
+	fs.mkdirSync(jsvuBinPath, { recursive: true });
 	// Don’t store one-off CLI args in the persistent configuration.
 	const statusCopy = { ...status };
 	delete statusCopy.engine;
