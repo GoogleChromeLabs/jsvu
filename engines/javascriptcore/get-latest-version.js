@@ -81,6 +81,11 @@ const getLatestVersion = (os) => {
 				// https://build.webkit.org/#/builders/1223
 				// This publishes universal x86_64 + arm64 binaries.
 				return getLatestRevisionFromBuilder(1223);
+			} else if (name === 'tahoe') {
+				// Builder name: Apple-Tahoe-Release-Build
+				// https://build.webkit.org/#/builders/1715
+				// This publishes universal x86_64 + arm64 binaries.
+				return getLatestRevisionFromBuilder(1715);
 			} else {
 				throw new Error(`Unknown MacOS name: ${name}.`);
 			}
