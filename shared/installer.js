@@ -41,20 +41,20 @@ const installSingleBinarySymlink = (from, to) => {
 };
 
 class Installer {
-	constructor({ engine, path }) {
+	constructor({ engine, path: sourcePath }) {
 		this.engine = engine;
-		this.sourcePath = path;
-		this.targetRelPath = `engines/${engine}`;
-		this.targetPath = `${jsvuPath}/${this.targetRelPath}`;
+		this.sourcePath = sourcePath;
+		this.targetRelPath = path.join('engines', engine);
+		this.targetPath = path.join(jsvuPath, this.targetRelPath);
 		fse.ensureDirSync(this.targetPath);
 	}
 	installLibrary(fileName) {
-		const from = `${this.sourcePath}/${fileName}`;
+		const from = path.join(this.sourcePath, fileName);
 		// Workaround for https://github.com/GoogleChromeLabs/jsvu/issues/81.
 		if (!fse.existsSync(from) || fse.statSync(from).size === 1) {
 			return false;
 		}
-		const to = `${this.targetPath}/${fileName}`;
+		const to = path.join(this.targetPath, fileName);
 		console.log(`Installing library to ${tildify(to)}…`);
 		fse.ensureDirSync(path.dirname(to));
 		fse.moveSync(from, to, {
@@ -63,7 +63,7 @@ class Installer {
 		return true;
 	}
 	installLibraryGlob(pattern) {
-		const filePaths = glob.sync(`${this.sourcePath}/${pattern}`);
+		const filePaths = glob.sync(path.join(this.sourcePath, pattern));
 		for (const filePath of filePaths) {
 			const fileName = path.relative(this.sourcePath, filePath);
 			this.installLibrary(fileName);
@@ -74,26 +74,26 @@ class Installer {
 			for (const from of Object.keys(arg)) {
 				const to = arg[from];
 				installSingleBinary(
-					`${this.sourcePath}/${from}`,
-					`${this.targetPath}/${to}`
+					path.join(this.sourcePath, from),
+					path.join(this.targetPath, to)
 				);
 				if (options.symlink) {
 					installSingleBinarySymlink(
-						`${jsvuBinPath}/${to}`,
-						`${this.targetPath}/${to}`
+						path.join(jsvuBinPath, to),
+						path.join(this.targetPath, to)
 					);
 				}
 			}
 		} else {
 			const from = arg;
 			installSingleBinary(
-				`${this.sourcePath}/${from}`,
-				`${this.targetPath}/${from}`
+				path.join(this.sourcePath, from),
+				path.join(this.targetPath, from)
 			);
 			if (options.symlink) {
 				installSingleBinarySymlink(
-					`${jsvuBinPath}/${from}`,
-					`${this.targetPath}/${from}`
+					path.join(jsvuBinPath, from),
+					path.join(this.targetPath, from)
 				);
 			}
 		}
@@ -103,24 +103,24 @@ class Installer {
 			for (const to of Object.keys(arg)) {
 				const from = arg[to];
 				installSingleBinarySymlink(
-					`${jsvuBinPath}/${from}`,
-					`${this.targetPath}/${to}`
+					path.join(jsvuBinPath, from),
+					path.join(this.targetPath, from)
 				);
 			}
 		} else {
 			const to = arg;
 			installSingleBinarySymlink(
-				`${jsvuBinPath}/${to}`,
-				`${this.targetPath}/${to}`
+				path.join(jsvuBinPath, to),
+				path.join(this.targetPath, to)
 			);
 		}
 	}
 	installLicense(arg) {
 		for (const from of Object.keys(arg)) {
-			const to = `${this.targetPath}/${arg[from]}`;
+			const to = path.join(this.targetPath, arg[from]);
 			console.log(`Installing license to ${tildify(to)}…`);
 			fse.moveSync(
-				`${this.sourcePath}/${from}`,
+				path.join(this.sourcePath, from),
 				to,
 				{
 					overwrite: true,
@@ -129,7 +129,7 @@ class Installer {
 		}
 	}
 	installScript({ name, alias, symlink, generateScript }) {
-		const to = `${jsvuBinPath}/${name}`;
+		const to = path.join(jsvuBinPath, name);
 		console.log(`Installing wrapper script to ${tildify(to)}…`);
 		const wrapperPath = process.platform === 'win32' ?
 			`%~dp0\\..\\${this.targetRelPath}` :
@@ -142,9 +142,9 @@ class Installer {
 		fse.chmodSync(to, 0o555);
 		if (alias) {
 			if (symlink) {
-				installSingleBinarySymlink(`${jsvuBinPath}/${alias}`, to);
+				installSingleBinarySymlink(path.join(jsvuBinPath, alias), to);
 			} else {
-				fse.copySync(to, `${jsvuBinPath}/${alias}`);
+				fse.copySync(to, path.join(jsvuBinPath, alias));
 			}
 		}
 	}
