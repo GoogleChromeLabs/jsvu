@@ -44,6 +44,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 | [**V8**][v8]              | `v8`                      | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 | [**V8 debug**][v8]        | `v8-debug`                | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 | [**XS**][xs]              | `xs`                      | ✅      | ✅         | ❌      | ✅               | ❌        | ✅        |
+| [**Escargot**][escargot]  | `escargot`                | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
 
 <sup>\*</sup> JavaScriptCore requires external dependencies to run on Windows:
 - On 32-bit Windows, install [iTunes](https://www.apple.com/itunes/download/).
@@ -56,6 +57,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 [sm]: https://bugzilla.mozilla.org/show_bug.cgi?id=1336514
 [v8]: https://bugs.chromium.org/p/chromium/issues/detail?id=936383
 [xs]: https://github.com/Moddable-OpenSource/moddable-xst
+[escargot]: https://github.com/Samsung/escargot
 
 ## Integration with `eshost-cli`
 
@@ -85,6 +87,7 @@ eshost --add 'SpiderMonkey' jsshell ~/.jsvu/bin/spidermonkey
 eshost --add 'V8 --harmony' d8 ~/.jsvu/bin/v8 --args '--harmony'
 eshost --add 'V8' d8 ~/.jsvu/bin/v8
 eshost --add 'XS' xs ~/.jsvu/bin/xs
+eshost --add 'Escargot' escargot ~/.jsvu/bin/escargot
 ```
 
 ### Windows
@@ -96,6 +99,7 @@ eshost --add "SpiderMonkey" jsshell "%USERPROFILE%\.jsvu\bin\spidermonkey.cmd"
 eshost --add "V8 --harmony" d8 "%USERPROFILE%\.jsvu\bin\v8.cmd" --args "--harmony"
 eshost --add "V8" d8 "%USERPROFILE%\.jsvu\bin\v8.cmd"
 eshost --add "XS" xs "%USERPROFILE%\.jsvu\bin\xs.cmd"
+eshost --add "Escargot" escargot "%USERPROFILE%\.jsvu\bin\escargot.cmd"
 ```
 
 That’s it! You can now run code snippets in all those engines with a single command:
@@ -117,7 +121,7 @@ However, there are use cases for running jsvu within non-interactive environment
 ```sh
 jsvu --os=linux64 --engines=all
 # Equivalent to:
-jsvu --os=linux64 --engines=graaljs,hermes,javascriptcore,quickjs,spidermonkey,v8,xs
+jsvu --os=linux64 --engines=graaljs,hermes,javascriptcore,quickjs,spidermonkey,v8,xs,escargot
 ```
 
 If the operating system and architecture are not known in advance, the `--os=default` flag attempts to guess the correct value from the running environment. This might not be right for example if running a 32-bit Node.js process on a 64-bit machine.
@@ -145,6 +149,7 @@ jsvu spidermonkey@66.0b13
 jsvu v8@7.2.502
 jsvu v8-debug@7.1.302
 jsvu xs@8.7.0
+jsvu escargot@4.3.0
 ```
 
 If you pass in an invalid version number, or if the JavaScript engine creators don’t provide a precompiled binary for that specific version, jsvu shows an error.
