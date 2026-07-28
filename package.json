@@ -57,5 +57,8 @@
 		"tildify": "^2.0.0",
 		"untildify": "^4.0.0",
 		"update-notifier": "^3.0.1"
+	},
+	"overrides": {
+		"yauzl": "^3.3.1"
 	}
 }
