@@ -37,6 +37,8 @@ const installSingleBinary = (from, to) => {
 const installSingleBinarySymlink = (from, to) => {
 	console.log(`Installing symlink at ${tildify(from)} pointing to ${
 		tildify(to)}…`);
+	// `ensureSymlinkSync` keeps an existing symlink even if it points elsewhere.
+	fse.removeSync(from);
 	fse.ensureSymlinkSync(to, from);
 };
 
