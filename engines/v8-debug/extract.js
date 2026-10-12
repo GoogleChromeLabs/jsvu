@@ -30,7 +30,7 @@ const extract = ({ filePath, binary, os }) => {
 			path: tmpPath,
 		});
 		installer.installLibrary('icudtl.dat');
-		const hasNativesBlob = installer.installLibrary('natives_blob.bin');
+		installer.installLibrary('natives_blob.bin');
 		installer.installLibrary('snapshot_blob.bin');
 		switch (os) {
 			case 'mac64':
@@ -40,10 +40,9 @@ const extract = ({ filePath, binary, os }) => {
 				installer.installScript({
 					name: binary,
 					generateScript: (targetPath) => {
-						const nativesBlobArg = hasNativesBlob ? ` --natives_blob="${targetPath}/natives_blob.bin"` : '';
 						return `
 							#!/usr/bin/env bash
-							"${targetPath}/${binary}"${nativesBlobArg} --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
+							"${targetPath}/${binary}" "$@"
 						`;
 					}
 				});
@@ -56,10 +55,9 @@ const extract = ({ filePath, binary, os }) => {
 				installer.installScript({
 					name: binary,
 					generateScript: (targetPath) => {
-						const nativesBlobArg = hasNativesBlob ? ` --natives_blob="${targetPath}/natives_blob.bin"` : '';
 						return `
 							#!/usr/bin/env bash
-							"${targetPath}/${binary}"${nativesBlobArg} --snapshot_blob="${targetPath}/snapshot_blob.bin" "$@"
+							"${targetPath}/${binary}" "$@"
 						`;
 					}
 				});
@@ -75,10 +73,9 @@ const extract = ({ filePath, binary, os }) => {
 				installer.installScript({
 					name: `${binary}.cmd`,
 					generateScript: (targetPath) => {
-						const nativesBlobArg = hasNativesBlob ? ` --natives_blob="${targetPath}\\natives_blob.bin"` : '';
 						return `
 							@echo off
-							"${targetPath}\\${binary}.exe"${nativesBlobArg} --snapshot_blob="${targetPath}\\snapshot_blob.bin" %*
+							"${targetPath}\\${binary}.exe" %*
 						`;
 					}
 				});
