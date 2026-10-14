@@ -27,9 +27,11 @@ const predictFileName = (os) => {
 		case 'linux64': {
 			return 'linux-x86_64';
 		}
-		case 'mac64':
+		case 'mac64': {
+			return 'darwin-x86_64';
+		}
 		case 'mac64arm': {
-			return 'darwin';
+			return 'darwin-arm64';
 		}
 		default: {
 			throw new Error(
@@ -40,7 +42,12 @@ const predictFileName = (os) => {
 };
 
 const predictUrl = (version, os) => {
-	const fileName = predictFileName(os);
+	let fileName = predictFileName(os);
+	const majorVersion = parseInt(version.split('.')[0]);
+	const minorVersion = parseInt(version.split('.')[1]);
+	if (os.startsWith('mac') && majorVersion === 0 && minorVersion < 16) {
+		fileName = 'darwin';
+	}
 	const url = `https://github.com/quickjs-ng/quickjs/releases/download/v${version}/qjs-${fileName}`;
 	return url;
 };
