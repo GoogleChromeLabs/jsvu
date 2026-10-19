@@ -36,7 +36,7 @@ To update the installed JavaScript engines later on, just run `jsvu` again.
 
 | JavaScript engine         | Binary name               | `mac64` | `mac64arm` | `win32` | `win64`          | `linux32` | `linux64` |
 | ------------------------- | ------------------------- | ------- | ---------- | ------- | ---------------- | --------- | --------- |
-| [**GraalJS**][graaljs]    | `graaljs`                 | ✅      | ❌         | ❌      | ✅               | ❌        | ✅        |
+| [**GraalJS**][graaljs]    | `graaljs`                 | ❌      | ✅         | ❌      | ✅               | ❌        | ✅        |
 | [**Hermes**][hermes]      | `hermes` & `hermes-repl`  | ✅      | ✅         | ❌      | ✅               | ❌        | ✅        |
 | [**JavaScriptCore**][jsc] | `javascriptcore` or `jsc` | ✅      | ✅         | ❌      | ✅ <sup>\*</sup> | ❌        | ✅        |
 | [**QuickJS-ng**][quickjs] | `quickjs`                 | ✅      | ✅         | ✅      | ✅               | ✅        | ✅        |
