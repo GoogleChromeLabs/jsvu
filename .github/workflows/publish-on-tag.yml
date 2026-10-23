@@ -13,14 +13,39 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
       - name: Update npm
         run: npm install -g npm@latest
-      - name: Publish
+      - name: Authenticate to Google Cloud for OSS Exit Gate
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: 'projects/305452601764/locations/global/workloadIdentityPools/builders/providers/github'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3
+
+      - name: Stage to Artifact Registry and trigger OSS Exit Gate
+        env:
+          ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
-          npm publish --provenance --access public
+          cat << 'NPMRC' > "$HOME/.npmrc"
+          registry=https://us-npm.pkg.dev/oss-exit-gate-prod/jsvu--npm/
+          //us-npm.pkg.dev/oss-exit-gate-prod/jsvu--npm/:always-auth=true
+          //us-npm.pkg.dev/oss-exit-gate-prod/jsvu--npm/:_authToken=${ACCESS_TOKEN}
+          NPMRC
+          trap 'rm -f "$HOME/.npmrc"' EXIT
+          npm publish --access public --registry="https://us-npm.pkg.dev/oss-exit-gate-prod/jsvu--npm/"
+          cat << 'MANIFEST' > manifest.json
+          {
+            "publish_all": true
+          }
+          MANIFEST
+          gcloud storage cp manifest.json "gs://oss-exit-gate-prod-projects-bucket/jsvu/npm/manifests/manifest-${RUN_ID}-${RUN_ATTEMPT}.json"
